@@ -25,24 +25,28 @@
   </div>
 </nav>
 
-<header class="cover">
-  <p class="label label--accent reveal">03 — RECIPE BOOK</p>
-  <h1 class="reveal d1">숫자가 붙어 있는<br><em>차림표.</em></h1>
+<header class="cover cover--center">
+  <p class="label label--accent reveal">03 — LA CARTE</p>
+  <h1 class="reveal d1">오늘의 <em>차림표.</em></h1>
   <p class="cover__lede reveal d2">
-    모든 레시피에 1인분 나트륨 추정치를 붙였습니다.
-    종류와 나트륨 기준으로 걸러서, 오늘 만들 한 가지를 고르세요. 매주 새 레시피가 추가됩니다.
+    코스로 구성한 저나트륨 차림표입니다. 요리명 아래의 숫자는 1인분 나트륨 추정치 —
+    빈티지를 고르듯, 오늘 만들 한 가지를 고르세요. 매주 새 요리가 오릅니다.
   </p>
 </header>
 
-<section class="rbook">
-  <div class="rbook__filters reveal">
-    <div class="chips" id="catChips"></div>
-    <div class="chips" id="naChips"></div>
+<section class="rbook rbook--carte">
+  <div class="chips chips--center reveal" id="naChips"></div>
+  <div class="carte reveal d1">
+    <div class="carte__head">
+      <p class="carte__title">Nutri<em>Live</em></p>
+      <p class="carte__sub">MENU — 低鹽 데귀스타시옹</p>
+      <p class="carte__date">VOL.01 · 2026.08</p>
+    </div>
+    <div id="recipeGrid"></div>
+    <div class="carte__foot">
+      <p>영양성분은 재료·조리법에 따라 달라질 수 있는 추정 참고치입니다.<br>개인별 식단은 의사·임상영양사와 상담해 조정하세요.</p>
+    </div>
   </div>
-  <div class="rbook__grid" id="recipeGrid"></div>
-  <p class="sec__note">
-    ※ 영양성분은 재료·조리법에 따라 달라질 수 있는 추정 참고치입니다. 개인별 식단은 의사·임상영양사와 상담해 조정하세요.
-  </p>
 </section>
 
 <footer class="colophon">

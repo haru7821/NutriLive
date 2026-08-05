@@ -369,20 +369,63 @@ em { font-style: normal; }
 .sum__bar i.over { background: var(--accent); }
 .overtxt { color: var(--accent) !important; font-weight: 700; }
 
-/* ---------- 레시피북 지면 ---------- */
+/* ---------- 차림표 (미슐랭 카르트) ---------- */
+.cover--center { text-align: center; }
+.cover--center .cover__lede { margin: 0 auto; }
 .rbook { padding: 0 var(--mx) 5rem; }
-.rbook__filters { border-top: 1px solid var(--rule); padding-top: 1rem; margin-bottom: 1.2rem; }
-.rbook__grid { border-top: 1px solid var(--rule); }
+.rbook--carte { padding-top: .5rem; }
 .rbook__none { color: var(--ink-35); text-align: center; padding: 3rem 0; }
-.recipe { border-bottom: 1px solid var(--rule-soft); padding: 1.4rem .1rem; }
-.recipe__badge { font-family: var(--mono); font-size: .72rem; color: var(--accent); }
-.recipe h3 { font-family: var(--serif); font-size: 1.2rem; font-weight: 700; margin: .25rem 0 .35rem; }
-.recipe p { font-size: .88rem; font-weight: 300; color: var(--ink-70); max-width: 46em; }
-.recipe__tip {
-  margin-top: .6rem; padding-left: 1rem; border-left: 2px solid var(--accent);
-  font-size: .8rem !important; color: var(--ink-70) !important; max-width: 44em;
+.chips--center { justify-content: center; margin-bottom: 1.8rem; }
+
+.carte {
+  max-width: 640px; margin: 0 auto; text-align: center;
+  border: 1px solid var(--ink); outline: 1px solid var(--ink); outline-offset: 5px;
+  padding: 3.4rem clamp(1.4rem, 5vw, 3.6rem) 2.8rem;
+  background: var(--paper);
 }
-.recipe__meta { font-family: var(--mono); font-size: .66rem; color: var(--ink-35); display: block; margin-top: .5rem; }
+.carte__head { margin-bottom: 2.6rem; }
+.carte__title { font-family: var(--serif); font-weight: 700; font-size: 1.5rem; letter-spacing: .06em; }
+.carte__title em { color: var(--accent); }
+.carte__sub {
+  font-size: .72rem; font-weight: 700; letter-spacing: .42em;
+  color: var(--ink-50); margin-top: .5rem;
+}
+.carte__date { font-family: var(--mono); font-size: .62rem; color: var(--ink-35); margin-top: .4rem; letter-spacing: .18em; }
+.carte__head::after {
+  content: ''; display: block; width: 52px; margin: 1.6rem auto 0;
+  border-bottom: 1px solid var(--ink);
+}
+
+.course { margin-bottom: 2.8rem; }
+.course:last-child { margin-bottom: 0; }
+.course__head { margin-bottom: 1.6rem; }
+.course__orn { display: block; font-size: .5rem; color: var(--accent); margin-bottom: .7rem; }
+.course__head h2 {
+  font-family: var(--serif); font-weight: 700; font-size: 1.05rem; letter-spacing: .3em;
+  text-indent: .3em; /* letter-spacing 시각 보정 */
+}
+.course__head p {
+  font-family: var(--mono); font-size: .58rem; letter-spacing: .34em; color: var(--ink-35); margin-top: .3rem;
+}
+
+.dish { margin: 0 auto 1.9rem; max-width: 30em; }
+.dish:last-child { margin-bottom: 0; }
+.dish h3 { font-family: var(--serif); font-weight: 700; font-size: 1.18rem; line-height: 1.4; }
+.dish__na {
+  font-family: var(--mono); font-size: .66rem; letter-spacing: .22em;
+  color: var(--accent); margin: .35rem 0 .55rem;
+}
+.dish__desc { font-size: .85rem; font-weight: 300; color: var(--ink-70); line-height: 1.75; }
+.dish__tip {
+  font-family: var(--serif); font-size: .78rem; color: var(--ink-50);
+  margin-top: .55rem; line-height: 1.7;
+}
+.dish__tip::before, .dish__tip::after { content: ' · '; color: var(--ink-35); }
+
+.carte__foot {
+  margin-top: 3rem; padding-top: 1.4rem; border-top: 1px solid var(--rule-soft);
+  font-size: .68rem; color: var(--ink-35); line-height: 1.9;
+}
 
 /* ---------- 마켓 페이지 ---------- */
 .criteria { padding: 0 var(--mx) 3rem; }
