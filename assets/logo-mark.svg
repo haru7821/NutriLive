@@ -5,10 +5,10 @@
       <stop offset="1" stop-color="#9FC131"/>
     </linearGradient>
   </defs>
-  <!-- 그린 라운드 아크 (오른쪽으로 열린 D형 루프) -->
-  <path d="M44 26 H56 A26 26 0 0 1 56 78 H44 L52 70 H56 A18 18 0 0 0 56 34 H52 Z"
-        fill="url(#nl-g)"/>
-  <!-- 먹색 N 모노그램 (앵글 컷) -->
-  <path d="M20 82 V18 L30 18 L58 52 L58 40 L66 30 V52 L50 52 L30 28 L30 82 Z"
-        fill="#17252a" transform="translate(-2 0)"/>
+  <!-- 그린 라운드 루프 -->
+  <path d="M46 27.5 H58 A25.5 25.5 0 0 1 58 78.5 H46"
+        fill="none" stroke="url(#nl-g)" stroke-width="11"/>
+  <!-- 먹색 N -->
+  <path d="M18 32 L29 21 L29 84 L18 84 Z" fill="#17252a"/>
+  <path d="M29 21 L40 21 L62 51 L54.5 58.5 Z" fill="#17252a"/>
 </svg>
