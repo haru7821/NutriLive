@@ -5,13 +5,10 @@
       <stop offset="1" stop-color="#9FC131"/>
     </linearGradient>
   </defs>
-  <g fill="none" stroke="url(#nl-g)" stroke-width="6" stroke-linecap="round">
-    <!-- 잎사귀 -->
-    <path d="M48 34 C46 18 58 8 74 10 C78 26 66 38 50 36 Z"/>
-    <path d="M53 31 C58 24 64 19 70 16"/>
-    <!-- 그릇 (말린 테두리) -->
-    <path d="M31 47 a5.5 5.5 0 1 0 -5.5 5.5"/>
-    <path d="M69 47 a5.5 5.5 0 1 1 5.5 5.5"/>
-    <path d="M27 55 a23 17 0 0 0 46 0"/>
-  </g>
+  <!-- 그린 라운드 아크 (오른쪽으로 열린 D형 루프) -->
+  <path d="M44 26 H56 A26 26 0 0 1 56 78 H44 L52 70 H56 A18 18 0 0 0 56 34 H52 Z"
+        fill="url(#nl-g)"/>
+  <!-- 먹색 N 모노그램 (앵글 컷) -->
+  <path d="M20 82 V18 L30 18 L58 52 L58 40 L66 30 V52 L50 52 L30 28 L30 82 Z"
+        fill="#17252a" transform="translate(-2 0)"/>
 </svg>
