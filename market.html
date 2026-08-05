@@ -7,55 +7,79 @@
 <meta name="description" content="나트륨·칼륨·인 기준을 통과한 제품만 담는 큐레이션 마켓. 저나트륨 밀키트와 무첨가 간식, 사전 등록을 받고 있습니다.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<nav class="nav" id="nav">
-  <a class="nav__logo" href="index.html">Nutri<em>Live</em></a>
-  <div class="nav__links" id="navLinks">
-    <a href="index.html#nutrients">영양소 가이드</a>
+<nav class="mast" id="nav">
+  <a class="mast__logo" href="index.html">Nutri<em>Live</em></a>
+  <p class="mast__issue">VOL.01 — 2026.08</p>
+  <button class="mast__toggle" id="navToggle" aria-label="메뉴 열기">☰</button>
+  <div class="mast__links" id="navLinks">
     <a href="tools.html">성분 판별기</a>
     <a href="recipes.html">레시피북</a>
-    <a href="market.html">저나트륨 마켓</a>
-    <a class="nav__cta" href="index.html#news">뉴스레터</a>
+    <a href="index.html#global">해외 큐레이션</a>
+    <a href="market.html" class="now">마켓</a>
+    <a href="index.html#news">구독</a>
   </div>
-  <button class="nav__toggle" id="navToggle" aria-label="메뉴 열기">☰</button>
 </nav>
 
-<header class="mhero">
-  <p class="hero__eyebrow reveal">NUTRILIVE MARKET — 준비 중</p>
+<header class="cover">
+  <p class="label label--accent reveal">05 — NUTRILIVE MARKET · 준비 중</p>
   <h1 class="reveal d1">라벨은 저희가 읽을게요.<br>당신은 <em>맛있게 드세요.</em></h1>
-  <p class="mhero__lede reveal d2">
+  <p class="cover__lede reveal d2">
     마트에서 뒷면 라벨과 씨름하는 시간을 없애 드립니다.
     나트륨·칼륨·인 기준을 통과한 제품만 골라 담는 큐레이션 마켓을 준비하고 있습니다.
   </p>
-  <p class="mhero__banner reveal d3">
+  <p class="cover__notice reveal d3">
     사전 등록은 <strong>이메일만 남기는 것으로, 결제가 발생하지 않습니다.</strong>
     오픈이 확정되면 가장 먼저 소식을 드리고, 등록자에게는 <strong>얼리버드 혜택</strong>을 약속드립니다.
   </p>
 </header>
 
-<section class="criteria">
-  <h2>NutriLive 마켓의 선정 기준</h2>
-  <div class="criteria__grid">
-    <div class="criteria__item reveal"><strong>저나트륨 밀키트</strong><span>1끼 나트륨 500mg 이하. 맛 평가를 통과한 제품만 소개합니다.</span></div>
-    <div class="criteria__item reveal d1"><strong>무첨가 간식 박스</strong><span>인산염 계열 첨가물이 원재료명에 없는 간식만 선별해 정기 배송.</span></div>
-    <div class="criteria__item reveal d2"><strong>대체 양념 셀렉션</strong><span>저염 간장, 무염 시즈닝 등 — 싱거운 요리를 맛있게 만드는 도구들.</span></div>
-    <div class="criteria__item reveal d3"><strong>투명한 성분 공개</strong><span>모든 제품에 나트륨·칼륨·인 함량을 한 표로 정리해 드립니다.</span></div>
+<section class="sec criteria" style="margin-top:2.5rem;">
+  <div class="sec__grid">
+    <aside class="sec__side">
+      <span class="sec__no">기준</span>
+      <h2>마켓의<br>선정 기준</h2>
+      <p>효능이 아니라 숫자로 고릅니다. 모든 제품에 성분 수치를 한 표로 공개합니다.</p>
+    </aside>
+    <div class="speclist" style="border-top-color: var(--rule);">
+      <div class="speclist__row reveal">
+        <span class="speclist__no">M-01</span>
+        <span class="speclist__name">저나트륨 밀키트</span>
+        <p>1끼 나트륨 500mg 이하. 맛 평가를 통과한 제품만 소개합니다.</p>
+      </div>
+      <div class="speclist__row reveal d1">
+        <span class="speclist__no">M-02</span>
+        <span class="speclist__name">무첨가 간식 박스</span>
+        <p>인산염 계열 첨가물이 원재료명에 없는 간식만 선별해 정기 배송.</p>
+      </div>
+      <div class="speclist__row reveal d2">
+        <span class="speclist__no">M-03</span>
+        <span class="speclist__name">대체 양념 셀렉션</span>
+        <p>저염 간장, 무염 시즈닝 등 — 싱거운 요리를 맛있게 만드는 도구들.</p>
+      </div>
+      <div class="speclist__row reveal d3">
+        <span class="speclist__no">M-04</span>
+        <span class="speclist__name">투명한 성분 공개</span>
+        <p>모든 제품에 나트륨·칼륨·인 함량을 한 표로 정리해 드립니다.</p>
+      </div>
+    </div>
   </div>
 </section>
 
 <section class="waitform">
   <div class="waitform__inner reveal">
+    <p class="label label--accent">PRE-REGISTRATION</p>
     <h2>마켓 오픈 사전 등록</h2>
     <p>오픈 알림과 얼리버드 혜택을 이메일로 보내드립니다. 결제 정보는 받지 않습니다.</p>
     <form class="news__form" id="newsForm">
       <input type="email" placeholder="이메일 주소" required aria-label="이메일 주소">
-      <button type="submit" class="btn btn--main">사전 등록 — 결제 없음</button>
+      <button type="submit" class="btn btn--main">사전 등록</button>
     </form>
-    <p class="news__done" id="newsDone">등록되었습니다. 오픈 소식으로 찾아뵐게요! 🧺</p>
+    <p class="news__done" id="newsDone">등록되었습니다. 오픈 소식으로 찾아뵐게요.</p>
   </div>
 </section>
 
@@ -79,21 +103,25 @@
   </details>
 </section>
 
-<footer class="footer">
-  <div class="footer__inner">
-    <a class="nav__logo" href="index.html">Nutri<em>Live</em></a>
-    <p class="footer__disclaim">
-      NutriLive는 일반적인 식생활 정보를 제공하는 매체이며, 의학적 진단·조언·치료를 제공하지 않습니다.
-      건강 상태에 따른 식단 조정은 반드시 의사 또는 임상영양사와 상담하세요.
-      소개되는 모든 제품은 일반식품으로, 질병의 예방·치료를 위한 것이 아닙니다.
-    </p>
-    <div class="footer__links">
+<footer class="colophon">
+  <div class="colophon__grid">
+    <div class="colophon__id">
+      <a class="mast__logo" href="index.html">Nutri<em>Live</em></a>
+      <p>VOL.01 — 2026.08 · SEOUL</p>
+    </div>
+    <div class="colophon__links">
       <a href="index.html">홈</a>
-      <a href="index.html#global">해외 큐레이션</a>
+      <a href="tools.html">성분 판별기</a>
+      <a href="recipes.html">레시피북</a>
       <a href="mailto:hello@nutrilive.kr">제휴 문의</a>
     </div>
-    <p class="footer__copy">© 2026 NutriLive. All rights reserved.</p>
   </div>
+  <p class="colophon__disclaim">
+    NutriLive는 일반적인 식생활 정보를 제공하는 매체이며, 의학적 진단·조언·치료를 제공하지 않습니다.
+    건강 상태에 따른 식단 조정은 반드시 의사 또는 임상영양사와 상담하세요.
+    소개되는 모든 제품은 일반식품으로, 질병의 예방·치료를 위한 것이 아닙니다.
+    © 2026 NutriLive.
+  </p>
 </footer>
 
 <script src="js/main.js"></script>

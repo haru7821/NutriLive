@@ -7,64 +7,62 @@
 <meta name="description" content="식품의 나트륨·칼륨·인 함량을 검색하고, 내가 정한 목표 대비 오늘의 식탁을 계산해보세요.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<nav class="nav" id="nav">
-  <a class="nav__logo" href="index.html">Nutri<em>Live</em></a>
-  <div class="nav__links" id="navLinks">
-    <a href="tools.html">성분 판별기</a>
+<nav class="mast" id="nav">
+  <a class="mast__logo" href="index.html">Nutri<em>Live</em></a>
+  <p class="mast__issue">VOL.01 — 2026.08</p>
+  <button class="mast__toggle" id="navToggle" aria-label="메뉴 열기">☰</button>
+  <div class="mast__links" id="navLinks">
+    <a href="tools.html" class="now">성분 판별기</a>
     <a href="recipes.html">레시피북</a>
     <a href="index.html#global">해외 큐레이션</a>
-    <a href="market.html">저나트륨 마켓</a>
-    <a class="nav__cta" href="index.html#news">뉴스레터</a>
+    <a href="market.html">마켓</a>
+    <a href="index.html#news">구독</a>
   </div>
-  <button class="nav__toggle" id="navToggle" aria-label="메뉴 열기">☰</button>
 </nav>
 
-<header class="mhero">
-  <p class="hero__eyebrow reveal">NUTRI SCANNER — 성분 판별기 (베타)</p>
+<header class="cover">
+  <p class="label label--accent reveal">02 — NUTRI SCANNER · 베타</p>
   <h1 class="reveal d1">이 음식, 숫자로<br><em>확인하고 드세요.</em></h1>
-  <p class="mhero__lede reveal d2">
-    식품을 검색하면 나트륨·칼륨·인 함량을 한눈에 보여드립니다.
+  <p class="cover__lede reveal d2">
+    식품을 검색하면 나트륨·칼륨·인 함량을 보여드립니다.
     「오늘의 식탁」에 담으면 내가 정한 하루 목표 대비 얼마나 채웠는지 계산해 드려요.
   </p>
-  <p class="mhero__banner reveal d3">
+  <p class="cover__notice reveal d3">
     수치는 100g당 <strong>참고치(데모 데이터)</strong>이며 실제 제품·조리 상태에 따라 다릅니다.
     목표값은 본인이 직접 설정하는 값입니다 — <strong>개인별 권장량은 의사·임상영양사와 상담해 정하세요.</strong>
   </p>
 </header>
 
-<!-- 목표 설정 -->
 <section class="scanner">
   <div class="scanner__targets reveal">
-    <h2>① 나의 하루 목표 설정</h2>
+    <h2><span>①</span>나의 하루 목표 설정</h2>
     <p class="scanner__hint">나트륨 기본값은 WHO 일반 권장 상한(2,000mg)입니다. 칼륨·인은 개인차가 커서 기본값을 제공하지 않아요 — 전문가와 상담한 나의 값을 직접 입력하세요.</p>
     <div class="targets__grid">
-      <label>나트륨 (mg/일)<input type="number" id="tgNa" value="2000" min="0"></label>
-      <label>칼륨 (mg/일)<input type="number" id="tgK" placeholder="직접 입력" min="0"></label>
-      <label>인 (mg/일)<input type="number" id="tgP" placeholder="직접 입력" min="0"></label>
+      <label>나트륨 Na (mg/일)<input type="number" id="tgNa" value="2000" min="0"></label>
+      <label>칼륨 K (mg/일)<input type="number" id="tgK" placeholder="직접 입력" min="0"></label>
+      <label>인 P (mg/일)<input type="number" id="tgP" placeholder="직접 입력" min="0"></label>
     </div>
   </div>
 
   <div class="scanner__grid">
-    <!-- 검색 -->
     <div class="scanner__search reveal d1">
-      <h2>② 식품 검색</h2>
+      <h2><span>②</span>식품 검색</h2>
       <input type="search" id="foodSearch" placeholder="예: 김치, 라면, 바나나…" aria-label="식품 검색">
       <div class="chips" id="catChips"></div>
       <ul class="foodlist" id="foodList"></ul>
     </div>
 
-    <!-- 오늘의 식탁 -->
     <div class="scanner__tray reveal d2">
-      <h2>③ 오늘의 식탁</h2>
+      <h2><span>③</span>오늘의 식탁</h2>
       <ul class="tray" id="tray"></ul>
       <p class="tray__empty" id="trayEmpty">왼쪽에서 식품을 담아보세요.</p>
       <div class="sums" id="sums"></div>
-      <button class="btn btn--line" id="trayClear" type="button">식탁 비우기</button>
+      <button class="btn" id="trayClear" type="button">식탁 비우기</button>
     </div>
   </div>
 
@@ -74,21 +72,25 @@
   </p>
 </section>
 
-<footer class="footer">
-  <div class="footer__inner">
-    <a class="nav__logo" href="index.html">Nutri<em>Live</em></a>
-    <p class="footer__disclaim">
-      NutriLive는 일반적인 식생활 정보를 제공하는 매체이며, 의학적 진단·조언·치료를 제공하지 않습니다.
-      건강 상태에 따른 식단 조정은 반드시 의사 또는 임상영양사와 상담하세요.
-      소개되는 모든 제품은 일반식품으로, 질병의 예방·치료를 위한 것이 아닙니다.
-    </p>
-    <div class="footer__links">
+<footer class="colophon">
+  <div class="colophon__grid">
+    <div class="colophon__id">
+      <a class="mast__logo" href="index.html">Nutri<em>Live</em></a>
+      <p>VOL.01 — 2026.08 · SEOUL</p>
+    </div>
+    <div class="colophon__links">
       <a href="index.html">홈</a>
       <a href="recipes.html">레시피북</a>
+      <a href="market.html">마켓</a>
       <a href="mailto:hello@nutrilive.kr">제휴 문의</a>
     </div>
-    <p class="footer__copy">© 2026 NutriLive. All rights reserved.</p>
   </div>
+  <p class="colophon__disclaim">
+    NutriLive는 일반적인 식생활 정보를 제공하는 매체이며, 의학적 진단·조언·치료를 제공하지 않습니다.
+    건강 상태에 따른 식단 조정은 반드시 의사 또는 임상영양사와 상담하세요.
+    소개되는 모든 제품은 일반식품으로, 질병의 예방·치료를 위한 것이 아닙니다.
+    © 2026 NutriLive.
+  </p>
 </footer>
 
 <script src="data/foods.js"></script>

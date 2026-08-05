@@ -7,27 +7,28 @@
 <meta name="description" content="나트륨 수치를 표시한 한식 레시피북. 종류·나트륨 기준으로 골라보세요.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<nav class="nav" id="nav">
-  <a class="nav__logo" href="index.html">Nutri<em>Live</em></a>
-  <div class="nav__links" id="navLinks">
+<nav class="mast" id="nav">
+  <a class="mast__logo" href="index.html">Nutri<em>Live</em></a>
+  <p class="mast__issue">VOL.01 — 2026.08</p>
+  <button class="mast__toggle" id="navToggle" aria-label="메뉴 열기">☰</button>
+  <div class="mast__links" id="navLinks">
     <a href="tools.html">성분 판별기</a>
-    <a href="recipes.html">레시피북</a>
+    <a href="recipes.html" class="now">레시피북</a>
     <a href="index.html#global">해외 큐레이션</a>
-    <a href="market.html">저나트륨 마켓</a>
-    <a class="nav__cta" href="index.html#news">뉴스레터</a>
+    <a href="market.html">마켓</a>
+    <a href="index.html#news">구독</a>
   </div>
-  <button class="nav__toggle" id="navToggle" aria-label="메뉴 열기">☰</button>
 </nav>
 
-<header class="mhero">
-  <p class="hero__eyebrow reveal">RECIPE BOOK — 레시피북</p>
-  <h1 class="reveal d1">숫자가 붙어 있는<br><em>레시피북.</em></h1>
-  <p class="mhero__lede reveal d2">
+<header class="cover">
+  <p class="label label--accent reveal">03 — RECIPE BOOK</p>
+  <h1 class="reveal d1">숫자가 붙어 있는<br><em>차림표.</em></h1>
+  <p class="cover__lede reveal d2">
     모든 레시피에 1인분 나트륨 추정치를 붙였습니다.
     종류와 나트륨 기준으로 걸러서, 오늘 만들 한 가지를 고르세요. 매주 새 레시피가 추가됩니다.
   </p>
@@ -38,27 +39,31 @@
     <div class="chips" id="catChips"></div>
     <div class="chips" id="naChips"></div>
   </div>
-  <div class="recipes rbook__grid" id="recipeGrid"></div>
+  <div class="rbook__grid" id="recipeGrid"></div>
   <p class="sec__note">
     ※ 영양성분은 재료·조리법에 따라 달라질 수 있는 추정 참고치입니다. 개인별 식단은 의사·임상영양사와 상담해 조정하세요.
   </p>
 </section>
 
-<footer class="footer">
-  <div class="footer__inner">
-    <a class="nav__logo" href="index.html">Nutri<em>Live</em></a>
-    <p class="footer__disclaim">
-      NutriLive는 일반적인 식생활 정보를 제공하는 매체이며, 의학적 진단·조언·치료를 제공하지 않습니다.
-      건강 상태에 따른 식단 조정은 반드시 의사 또는 임상영양사와 상담하세요.
-      소개되는 모든 제품은 일반식품으로, 질병의 예방·치료를 위한 것이 아닙니다.
-    </p>
-    <div class="footer__links">
+<footer class="colophon">
+  <div class="colophon__grid">
+    <div class="colophon__id">
+      <a class="mast__logo" href="index.html">Nutri<em>Live</em></a>
+      <p>VOL.01 — 2026.08 · SEOUL</p>
+    </div>
+    <div class="colophon__links">
       <a href="index.html">홈</a>
       <a href="tools.html">성분 판별기</a>
+      <a href="market.html">마켓</a>
       <a href="mailto:hello@nutrilive.kr">제휴 문의</a>
     </div>
-    <p class="footer__copy">© 2026 NutriLive. All rights reserved.</p>
   </div>
+  <p class="colophon__disclaim">
+    NutriLive는 일반적인 식생활 정보를 제공하는 매체이며, 의학적 진단·조언·치료를 제공하지 않습니다.
+    건강 상태에 따른 식단 조정은 반드시 의사 또는 임상영양사와 상담하세요.
+    소개되는 모든 제품은 일반식품으로, 질병의 예방·치료를 위한 것이 아닙니다.
+    © 2026 NutriLive.
+  </p>
 </footer>
 
 <script src="data/recipes.js"></script>
