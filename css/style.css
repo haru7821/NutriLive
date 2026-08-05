@@ -242,6 +242,93 @@ em { font-style: normal; }
 .faq details[open] summary::after { content: '−'; }
 .faq details p { margin-top: .8rem; font-size: .9rem; color: var(--ink-soft); }
 
+/* ---------- 칩 필터 ---------- */
+.chips { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1rem 0; }
+.chip {
+  padding: .4rem 1rem; border-radius: 999px; font-size: .85rem; font-weight: 500;
+  border: 1.5px solid var(--line); background: #fff; color: var(--ink-soft);
+  cursor: pointer; transition: all .2s; font-family: var(--sans);
+}
+.chip:hover { border-color: var(--clementine); color: var(--clementine); }
+.chip.on { background: var(--spruce); border-color: var(--spruce); color: #fff; }
+
+/* ---------- 성분 판별기 ---------- */
+.scanner { padding: 2rem 5vw 5.5rem; max-width: 1080px; margin: 0 auto; }
+.scanner h2 { font-family: var(--serif); font-size: 1.25rem; margin-bottom: .8rem; }
+.scanner__hint { font-size: .85rem; color: var(--ink-faint); margin-bottom: 1.2rem; max-width: 620px; }
+.scanner__targets {
+  background: #fff; border: 1px solid var(--line); border-radius: 18px;
+  padding: 1.8rem; margin-bottom: 1.6rem;
+}
+.targets__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
+.targets__grid label { font-size: .85rem; font-weight: 700; color: var(--ink-soft); display: flex; flex-direction: column; gap: .4rem; }
+.targets__grid input {
+  padding: .75rem 1rem; border-radius: 12px; border: 1.5px solid var(--line);
+  background: var(--paper); font-family: var(--sans); font-size: 1rem; color: var(--ink); outline: none;
+}
+.targets__grid input:focus { border-color: var(--clementine); }
+.scanner__grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.6rem; align-items: start; }
+.scanner__search, .scanner__tray {
+  background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 1.8rem;
+}
+.scanner__search input[type="search"] {
+  width: 100%; padding: .85rem 1.2rem; border-radius: 999px;
+  border: 1.5px solid var(--line); background: var(--paper);
+  font-family: var(--sans); font-size: .95rem; color: var(--ink); outline: none;
+}
+.scanner__search input[type="search"]:focus { border-color: var(--clementine); }
+.foodlist { list-style: none; max-height: 520px; overflow-y: auto; display: grid; gap: .7rem; padding-right: .3rem; }
+.food { border: 1px solid var(--line); border-radius: 14px; padding: 1rem 1.1rem; }
+.food--none { text-align: center; color: var(--ink-faint); border-style: dashed; }
+.food__head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: .5rem; }
+.food__head span { font-size: .75rem; color: var(--ink-faint); }
+.food__nums { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; margin-bottom: .5rem; }
+.food__nums em { font-size: .8rem; font-weight: 700; padding: .18rem .6rem; border-radius: 999px; }
+.food__nums i { font-size: .72rem; color: var(--ink-faint); font-style: normal; }
+.lv-low  { background: rgba(122,143,60,.14); color: #5c7028; }
+.lv-mid  { background: rgba(183,132,48,.14); color: #96690f; }
+.lv-high { background: rgba(201,86,60,.14); color: #b23a22; }
+.food__warn { font-size: .78rem; color: #b23a22; margin-bottom: .5rem; }
+.food__add {
+  font-size: .82rem; font-weight: 700; color: var(--spruce);
+  background: none; border: 1.5px solid var(--spruce); border-radius: 999px;
+  padding: .3rem .9rem; cursor: pointer; transition: all .2s; font-family: var(--sans);
+}
+.food__add:hover { background: var(--spruce); color: #fff; }
+.tray { list-style: none; display: grid; gap: .6rem; margin-bottom: 1rem; }
+.tray__item {
+  display: flex; align-items: center; gap: .7rem; justify-content: space-between;
+  border: 1px solid var(--line); border-radius: 12px; padding: .6rem .9rem; font-size: .88rem;
+}
+.tray__grams { display: flex; align-items: center; gap: .45rem; }
+.tray__grams button {
+  width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--line);
+  background: var(--paper); cursor: pointer; font-family: var(--sans); color: var(--ink);
+}
+.tray__grams b { min-width: 44px; text-align: center; font-size: .82rem; }
+.tray__rm { background: none; border: none; color: var(--ink-faint); cursor: pointer; font-size: .85rem; }
+.tray__rm:hover { color: #b23a22; }
+.tray__empty { font-size: .88rem; color: var(--ink-faint); margin-bottom: 1rem; }
+.sums { display: grid; gap: 1rem; margin-bottom: 1.4rem; }
+.sum span { font-size: .8rem; font-weight: 700; color: var(--ink-soft); }
+.sum b { display: block; font-family: var(--serif); font-size: 1.1rem; margin: .15rem 0 .35rem; }
+.sum small { font-size: .75rem; color: var(--ink-faint); }
+.sum__bar { height: 8px; border-radius: 999px; background: var(--paper-deep); overflow: hidden; }
+.sum__bar i { display: block; height: 100%; border-radius: 999px; background: var(--sage); transition: width .3s; }
+.sum__bar i.near { background: #b78430; }
+.sum__bar i.over { background: #c9563c; }
+.overtxt { color: #b23a22 !important; font-weight: 700; }
+
+/* ---------- 레시피북 ---------- */
+.rbook { padding: 1rem 5vw 5.5rem; max-width: 1080px; margin: 0 auto; }
+.rbook__filters { margin-bottom: 1.6rem; }
+.rbook__grid { margin-top: .5rem; }
+.rbook__none { color: var(--ink-faint); text-align: center; padding: 3rem 0; }
+.recipe__tip {
+  font-size: .82rem !important; background: var(--clementine-soft);
+  border-radius: 10px; padding: .6rem .8rem; color: var(--ink-soft) !important;
+}
+
 /* ---------- 리빌 애니메이션 ---------- */
 .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
 .reveal.on { opacity: 1; transform: none; }

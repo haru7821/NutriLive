@@ -7,13 +7,27 @@
 
 ```
 ├── index.html        # 메인 — 영양소 가이드 / 오늘의 식탁 / 해외 큐레이션 / 마켓 프리뷰
+├── tools.html        # [Top 1] 성분 판별기 — Na·K·P 검색 + 내 목표 대비 식탁 계산 (베타)
+├── recipes.html      # [Top 2] 레시피북 — 나트륨 수치 표시·필터링
 ├── market.html       # 저나트륨 마켓 사전 등록 (웨이팅 리스트)
+├── data/
+│   ├── foods.js      # 식품 성분 참고치 데이터셋 (→ 식약처 공공 DB API 연동 예정)
+│   └── recipes.js    # 레시피 데이터
 ├── css/style.css     # 따뜻한 식탁 에디토리얼 디자인 시스템
-├── js/main.js        # 스크롤 리빌, 모바일 내비, 폼 데모
+├── js/               # main.js(공통) tools.js(판별기) recipes.js(레시피 필터)
 └── docs/
-    ├── COMPLIANCE.md     # 표현·규제 준수 가이드라인 (게시 전 검수 기준)
-    └── BUSINESS_MODEL.md # CFO 유료화 가능성 조사 리포트
+    ├── COMPLIANCE.md                    # 표현·규제 준수 가이드라인 (게시 전 검수 기준)
+    ├── BUSINESS_MODEL.md                # CFO 유료화 가능성 조사 리포트
+    ├── KR_MEAL_DELIVERY_FEASIBILITY.md  # 일본 저염 도시락 모델 한국 적용성 (Stop 판정)
+    ├── KIOSK_LEGAL_REVIEW.md            # 병원 키오스크 모델 법률 검토 (No-Go 판정)
+    └── WHITESPACE_MODELS.md             # 한국 부재 모델 발굴 → Top 1·2 동시 진행 확정
 ```
+
+## 핵심 제품 (GM 승인: Top 1·2 동시 진행)
+
+- **성분 판별기** (`tools.html`): 식품 검색 → Na·K·P 100g당 수치 표시 → 「오늘의 식탁」에 담아 **사용자가 직접 설정한 목표** 대비 합산. 칼륨·인은 기본값을 제공하지 않음(개인차·전문가 상담 안내) — 의료행위 비해당 설계
+- **레시피북** (`recipes.html`): 전 레시피에 1인분 나트륨 추정치 표기, 종류·나트륨 기준 필터
+- 수익화 계획: 두 도구를 월 7,900원 구독 번들로 묶는 것이 Phase 1 상품 (상세: WHITESPACE_MODELS.md)
 
 ## 기술 로드맵
 
