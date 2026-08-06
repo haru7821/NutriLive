@@ -364,6 +364,22 @@ body.has-deck { padding-bottom: 96px; } /* 하단 고정 계산대 자리 확보
 }
 .ftable__add:hover { border-color: var(--ink); background: var(--ink); color: var(--paper); }
 .ftable__add.added { background: var(--spruce); border-color: var(--spruce); color: var(--paper); }
+.ftable__addcell { white-space: nowrap; }
+.ftable__qty { display: inline-flex; align-items: center; gap: .3rem; }
+.ftable__qty button {
+  width: 22px; height: 22px; line-height: 1; border: 1px solid var(--rule-mid);
+  background: var(--paper); cursor: pointer; font-size: .8rem; padding: 0;
+}
+.ftable__qty button:hover { border-color: var(--ink); }
+.ftable__qty b {
+  min-width: 44px; text-align: center; font-family: var(--mono);
+  font-size: .78rem; font-weight: 400; color: var(--spruce);
+}
+.ftable__hint {
+  margin: .7rem 0 0; font-size: .78rem; color: var(--ink-50); line-height: 1.7;
+  word-break: keep-all;
+}
+.ftable__hint b { font-family: var(--mono); font-weight: 400; color: var(--spruce); }
 .ftable__favhead { text-align: center !important; color: var(--ink-35); padding-left: .1rem !important; padding-right: .1rem !important; }
 .ftable__favcell { text-align: center !important; padding-left: .1rem !important; padding-right: .1rem !important; white-space: nowrap; }
 .ftable__fav {

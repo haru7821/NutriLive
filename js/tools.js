@@ -165,8 +165,9 @@
     if (v == null) return '<td class="ftable__miss" title="식약처 DB에 정보가 없는 항목">—</td>';
     return '<td class="' + levelClass(v, kind) + '">' + fmt(v) + '</td>';
   }
-  function inTray(name) {
-    return tray.some(function (t) { return t.food.name === name; });
+  function trayItem(name) {
+    for (var i = 0; i < tray.length; i++) if (tray[i].food.name === name) return tray[i];
+    return null;
   }
 
   document.querySelectorAll('.ftable__sort').forEach(function (th) {
@@ -208,8 +209,16 @@
     if (total > MAX_ROWS) list = list.slice(0, MAX_ROWS);
 
     var html = list.map(function (f, i) {
-      var added = inTray(f.name);
+      var item = trayItem(f.name);
       var isFav = favs.indexOf(f.name) !== -1;
+      // 담긴 식품은 버튼 대신 양 조절기 — 몇 g 담았는지 표에서 바로 보이고 조절도 된다
+      var addCell = item
+        ? '<td class="ftable__addcell"><span class="ftable__qty" title="담은 양 (25g 단위 조절, 25g에서 −를 누르면 빼기)">' +
+            '<button type="button" data-i="' + i + '" data-d="-25" aria-label="25g 줄이기">−</button>' +
+            '<b>' + item.grams + 'g</b>' +
+            '<button type="button" data-i="' + i + '" data-d="25" aria-label="25g 늘리기">＋</button>' +
+          '</span></td>'
+        : '<td><button type="button" class="ftable__add" data-i="' + i + '">+ 담기</button></td>';
       return '<tr>' +
         '<td class="ftable__favcell"><button type="button" class="ftable__fav' + (isFav ? ' on' : '') + '" data-i="' + i + '" title="즐겨찾기 ' + (isFav ? '해제' : '추가') + '">' + (isFav ? '★' : '☆') + '</button></td>' +
         '<td class="ftable__food">' + f.name +
@@ -217,8 +226,7 @@
           (f.phosAdd ? ' <span class="ftable__warn" title="인산염 계열 첨가물이 흔히 쓰이는 카테고리 — 원재료명 확인">⚠ 인 첨가물</span>' : '') +
         '</td>' +
         cell(f.na, 'na') + cell(f.k, 'k') + cell(f.p, 'p') +
-        '<td><button type="button" class="ftable__add' + (added ? ' added' : '') + '" data-i="' + i + '">' +
-          (added ? '담음 ✓' : '+ 담기') + '</button></td>' +
+        addCell +
       '</tr>';
     }).join('');
     rowsEl.innerHTML = html ||
@@ -244,17 +252,25 @@
       renderRows();
       return;
     }
+    var qtyBtn = e.target.closest('.ftable__qty button');
+    if (qtyBtn) {
+      var qf = rowsEl._list[parseInt(qtyBtn.dataset.i, 10)];
+      var qi = qf && trayItem(qf.name);
+      if (!qi) return;
+      var next = qi.grams + parseInt(qtyBtn.dataset.d, 10);
+      if (next < 25) tray.splice(tray.indexOf(qi), 1); // 최소량 밑으로 줄이면 식탁에서 빼기
+      else qi.grams = next;
+      renderTray();
+      renderRows();
+      return;
+    }
     var btn = e.target.closest('.ftable__add');
     if (!btn) return;
     var f = rowsEl._list[parseInt(btn.dataset.i, 10)];
     if (!f) return;
-    var existing = null;
-    tray.forEach(function (t) { if (t.food.name === f.name) existing = t; });
-    if (existing) existing.grams += 100; // 이미 담긴 식품은 100g 추가
-    else tray.push({ food: f, grams: 100 });
-    btn.classList.add('added');
-    btn.textContent = '담음 ✓';
+    tray.push({ food: f, grams: 100 });
     renderTray();
+    renderRows(); // 버튼이 양 조절기로 바뀐다
   });
 
   /* ---------- 계산대 (하단 바 + 영수증 패널) ---------- */
@@ -307,6 +323,7 @@
         b.addEventListener('click', function () {
           item.grams = Math.max(25, item.grams + parseInt(b.dataset.d, 10));
           renderTray();
+          renderRows(); // 표의 양 조절기와 동기화
         });
       });
       li.querySelector('.tray__rm').addEventListener('click', function () {
