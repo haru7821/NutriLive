@@ -5,7 +5,7 @@ window.NUTRI_CONFIG = {
   //    스티비 등 다른 서비스의 POST 엔드포인트도 사용 가능.
   //    비워두면: 방문자의 메일 앱이 열려 아래 주소로 신청 메일을 보내는 방식으로 동작(계정 불필요).
   FORM_ENDPOINT: "https://formspree.io/f/mqpzkgjl",
-  FALLBACK_MAILTO: "haru7821@gmail.com",
+  FALLBACK_MAILTO: "cnh7821@gmail.com",
 
   // ①-1 주간 레터 구독 — MailerLite 직결 (계정 번호 + 임베드 폼 코드)
   //     두 값이 모두 있으면 「주간 레터 구독」 신청이 MailerLite 구독자 명단에 바로 등록됩니다.
