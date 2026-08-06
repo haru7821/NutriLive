@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://haru7821.github.io/NutriLive/sitemap.xml

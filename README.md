@@ -53,6 +53,14 @@
 3. **해외 큐레이션** — 미국 NKF, 일본 저염 도시락 시장, 지중해식 등 요약+출처 링크
 4. **마켓(준비 중)** — 수치 기준 통과 제품만 큐레이션: 밀키트 / 무첨가 간식 / 대체 양념
 
+## 운영 셋업 (GM 5분 체크리스트)
+
+`js/config.js` 값만 바꾸면 즉시 적용됩니다 (재배포 자동):
+
+1. **리드 수집** — [Formspree](https://formspree.io) 무료 가입 → New Form → 엔드포인트를 `FORM_ENDPOINT`에 입력. *(미설정 시: 방문자 메일 앱이 열려 `FALLBACK_MAILTO`로 신청 메일 발송 — 계정 없이도 수집됨)*
+2. **방문 분석** — [GoatCounter](https://www.goatcounter.com) 무료 가입(쿠키 없음, 동의 배너 불필요) → 사이트 코드를 `ANALYTICS_CODE`에 입력
+3. **SEO** — 배포 후 [Google Search Console](https://search.google.com/search-console)에 사이트 등록 → `sitemap.xml` 제출
+
 ## 운영 원칙
 
 - 모든 문장은 `docs/COMPLIANCE.md` 체크리스트 통과 후 게시
