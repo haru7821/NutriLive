@@ -3,7 +3,51 @@
   if (typeof NUTRI_RECIPES === 'undefined') return;
 
   var naChips = document.getElementById('naChips');
+  var volChips = document.getElementById('volChips');
+  var carteDate = document.getElementById('carteDate');
   var grid = document.getElementById('recipeGrid');
+
+  /* ── 월간 호(號) — 발행월 기준 아카이브 ──
+     mon(YYYY-MM)이 이번 달보다 미래인 레시피는 숨김(예약 발행).
+     지난 달들은 「지난 호」로 언제든 꺼내 볼 수 있다. */
+  var FIRST_MON = '2026-08'; // 창간호
+  function nowMon() {
+    var d = new Date();
+    return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2);
+  }
+  // 미리보기: recipes.html?mon=2026-10 처럼 열면 그 시점 화면을 확인할 수 있다 (운영 점검용)
+  var previewMon = new URLSearchParams(location.search).get('mon');
+  var CUR = previewMon || nowMon();
+  function volNo(mon) { // 창간호부터의 월 차이로 호수 계산
+    var a = mon.split('-'), b = FIRST_MON.split('-');
+    return (a[0] - b[0]) * 12 + (a[1] - b[1]) + 1;
+  }
+  function volLabel(mon) {
+    return 'VOL.' + ('0' + volNo(mon)).slice(-2) + ' · ' + mon.replace('-', '.');
+  }
+  var mons = [];
+  NUTRI_RECIPES.forEach(function (r) {
+    var m = r.mon || FIRST_MON;
+    if (m <= CUR && mons.indexOf(m) === -1) mons.push(m);
+  });
+  mons.sort();
+  var activeMon = mons[mons.length - 1]; // 최신 호가 기본
+
+  if (mons.length > 1) { // 지난 호가 있을 때만 호 선택 칩 노출
+    mons.slice().reverse().forEach(function (m, i) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'chip' + (m === activeMon ? ' on' : '');
+      b.textContent = (i === 0 ? '이번 호 — ' : '지난 호 — ') + volLabel(m);
+      b.addEventListener('click', function () {
+        volChips.querySelectorAll('.chip').forEach(function (x) { x.classList.remove('on'); });
+        b.classList.add('on');
+        activeMon = m;
+        render();
+      });
+      volChips.appendChild(b);
+    });
+  }
 
   // 코스머리 먹선 일러스트 (장식용 — aria-hidden)
   var SVG_OPEN = '<svg viewBox="0 0 48 40" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">';
@@ -65,10 +109,12 @@
 
   function render() {
     grid.innerHTML = '';
+    if (carteDate) carteDate.textContent = volLabel(activeMon);
     var any = false;
     COURSES.forEach(function (course) {
       var items = NUTRI_RECIPES.filter(function (r) {
-        return r.cat === course.cat && r.na <= activeNa.max;
+        return (r.mon || FIRST_MON) === activeMon &&
+               r.cat === course.cat && r.na <= activeNa.max;
       });
       if (!items.length) return;
       any = true;
