@@ -1,0 +1,28 @@
+name: Send weekly newsletter
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 2'   # 매주 화요일 09:00 KST
+  push:
+    branches: [claude/nutrilive-dev]
+    paths: ['newsletter/latest.html']   # 새 호 푸시 = 발송 트리거 (해시 중복 방지 내장)
+
+concurrency:
+  group: send-newsletter
+  cancel-in-progress: false
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: claude/nutrilive-dev
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Send via MailerLite
+        env:
+          MAILERLITE_API_KEY: ${{ secrets.MAILERLITE_API_KEY }}
+        run: node scripts/send-newsletter.mjs

@@ -12,11 +12,21 @@
    - 소재 풀: NKF·NIH·AHA(미국), 감염 시장(일본), EFSA·지중해식(유럽)
 3. **컴플라이언스 검수** — docs/COMPLIANCE.md 체크리스트 통과 확인
    - 질병명+효능 동사 조합 금지 / "환자" 계열 단어 금지 / 수치는 참고치 표기
-4. **커밋·푸시** → 자동 배포
+4. **주간 레터 생성** — `newsletter/vol01-noN.html` 작성 후 같은 내용을 `newsletter/latest.html`로 복사
+   - latest.html이 푸시되면 발송 워크플로가 자동 실행 (내용 해시 중복이면 발송 안 함)
+   - 화요일 09:00 KST 정기 크론도 있음 — 월요일 루틴에서 미리 푸시해 두면 화요일에 나감
+5. **커밋·푸시** → 자동 배포
 
 ## 월간 작업 (매월 1일, Actions 자동)
 
-- 식약처 DB 갱신 (`update-foods.yml` — MFDS_API_KEY 시크릿 설정 후 가동)
+- 식약처 DB 갱신 (`update-foods.yml` — MFDS_API_KEY 시크릿, 가동 중)
+
+## 주간 레터 발송 (자동)
+
+- `send-newsletter.yml` — MailerLite API로 `newsletter/latest.html`을 구독자 그룹에 발송
+- 트리거: latest.html 푸시 / 매주 화요일 09:00 KST 크론 / 수동
+- 구독자 0명이면 조용히 건너뜀 · 같은 내용 재발송 방지(해시) 내장
+- 필요 시크릿: MAILERLITE_API_KEY
 
 ## 콘텐츠 백로그 (소재 저장소)
 
