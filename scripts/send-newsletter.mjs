@@ -11,7 +11,7 @@ if (!KEY) { console.error('MAILERLITE_API_KEY 시크릿이 없습니다.'); proc
 console.log(`토큰 감지: 길이 ${KEY.length}자, 앞 6자 ${KEY.slice(0, 6)}…`);
 
 const API = 'https://connect.mailerlite.com/api';
-const FROM_EMAIL = process.env.NEWSLETTER_FROM || 'haru7821@gmail.com';
+const FROM_EMAIL = process.env.NEWSLETTER_FROM || 'cnh7821@gmail.com'; // MailerLite에서 인증된 발신 주소
 const FROM_NAME = 'NutriLive';
 
 async function ml(path, method = 'GET', body) {
