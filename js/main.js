@@ -71,7 +71,7 @@
       }
 
       function mailFallback() {
-        location.href = 'mailto:' + (CFG.FALLBACK_MAILTO || 'hello@nutrilive.kr') +
+        location.href = 'mailto:' + (CFG.FALLBACK_MAILTO || 'haru7821@gmail.com') +
           '?subject=' + encodeURIComponent('[' + kind + '] 신청') +
           '&body=' + encodeURIComponent('신청 이메일: ' + email);
         done.textContent = '메일 앱이 열립니다. 전송 버튼만 눌러주시면 신청 완료예요.';
