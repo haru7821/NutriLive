@@ -296,56 +296,110 @@ em { font-style: normal; }
 .chip:hover { border-color: var(--spruce); color: var(--spruce); }
 .chip.on { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 
-/* ---------- 성분 판별기 ---------- */
-.scanner { padding: 0 var(--mx) 5rem; }
-.scanner h2 { font-family: var(--serif); font-size: 1.15rem; font-weight: 700; margin-bottom: .3rem; }
-.scanner h2 span { font-family: var(--mono); font-size: .82rem; font-weight: 400; color: var(--accent); margin-right: .5rem; }
-.scanner__hint { font-size: .88rem; font-weight: 400; color: var(--ink-50); margin-bottom: 1.2rem; max-width: 46em; }
-.scanner__targets { border-top: 1px solid var(--rule); padding: 1.8rem 0 1.6rem; }
-.targets__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.4rem; max-width: 720px; }
-.targets__grid label {
-  font-family: var(--mono); font-size: .8rem; color: var(--ink-50);
-  display: flex; flex-direction: column; gap: .35rem;
-}
-.targets__grid input {
-  padding: .55rem .2rem; border: none; border-bottom: 1px solid var(--rule-mid);
-  background: transparent; font-family: var(--mono); font-size: 1.05rem; color: var(--ink); outline: none;
-}
-.targets__grid input:focus { border-bottom-color: var(--spruce); }
-.scanner__grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 3rem; align-items: start; border-top: 1px solid var(--rule); padding-top: 1.8rem; }
-.scanner__search input[type="search"] {
-  width: 100%; padding: .7rem .2rem;
-  border: none; border-bottom: 1px solid var(--ink);
-  background: transparent; font-family: var(--sans); font-size: 1rem; color: var(--ink); outline: none;
-}
-.scanner__search input[type="search"]:focus { border-bottom-color: var(--spruce); }
-.foodlist { list-style: none; max-height: 560px; overflow-y: auto; }
-.food { border-bottom: 1px solid var(--rule-soft); padding: .95rem .1rem; }
-.food--none { color: var(--ink-35); text-align: center; padding: 2rem 0; }
-.food__head { display: flex; justify-content: space-between; align-items: baseline; }
-.food__head strong { font-family: var(--serif); font-size: 1rem; }
-.food__head span { font-family: var(--mono); font-size: .76rem; color: var(--ink-35); }
-.food__nums { display: flex; gap: 1.1rem; align-items: baseline; margin-top: .35rem; }
-.food__nums em { font-family: var(--mono); font-size: .86rem; }
-.food__nums i { font-family: var(--mono); font-style: normal; font-size: .74rem; color: var(--ink-35); margin-left: auto; }
-.lv-low { color: #5c7028; } .lv-mid { color: #a06a10; } .lv-high { color: var(--accent); font-weight: 700; }
-.food__warn { font-size: .82rem; color: var(--accent); margin-top: .3rem; }
-.food__add {
-  margin-top: .5rem; padding: .25rem .8rem;
-  font-family: var(--mono); font-size: .8rem;
-  border: 1px solid var(--rule-mid); background: transparent; color: var(--ink-70); cursor: pointer;
-  transition: all .2s;
-}
-.food__add:hover { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+/* ---------- 성분 판별기 (검색 → 비교표 → 하단 계산대) ---------- */
+body.has-deck { padding-bottom: 96px; } /* 하단 고정 계산대 자리 확보 */
+.cover--tool { padding-bottom: 1.6rem; }
+.scanner { padding: 0 var(--mx) 4rem; max-width: 1080px; }
 
-/* 계산서(영수증) 풍 식탁 */
-.scanner__tray { border: 1px solid var(--ink); padding: 1.6rem 1.4rem; position: sticky; top: 5.2rem; }
-.scanner__tray::before {
-  content: 'RECEIPT — 오늘의 식탁'; display: block;
-  font-family: var(--mono); font-size: .76rem; letter-spacing: .18em; color: var(--ink-35);
-  border-bottom: 1px dashed var(--rule-mid); padding-bottom: .8rem; margin-bottom: 1rem;
+.scanner__searchbox input[type="search"] {
+  width: 100%; padding: .95rem 1.2rem;
+  border: 2px solid var(--ink); background: rgba(255,255,255,.55);
+  font-family: var(--sans); font-size: 1.08rem; color: var(--ink); outline: none;
+  transition: border-color .2s, background .2s;
 }
-.scanner__tray h2 { display: none; }
+.scanner__searchbox input[type="search"]:focus { border-color: var(--spruce); background: #fff; }
+.scanner__searchbox input::placeholder { color: var(--ink-35); }
+
+/* 비교 테이블 */
+.ftable__wrap { overflow-x: auto; margin-top: .4rem; }
+.ftable { width: 100%; border-collapse: collapse; min-width: 560px; }
+.ftable th {
+  font-family: var(--mono); font-size: .74rem; font-weight: 500; letter-spacing: .1em;
+  color: var(--ink-50); text-align: right; padding: .7rem .6rem;
+  border-bottom: 2px solid var(--ink); white-space: nowrap;
+}
+.ftable th i { font-style: normal; font-size: .66rem; color: var(--ink-35); margin-left: .25em; }
+.ftable th.ftable__name { text-align: left; padding-left: .2rem; }
+.ftable__sort { cursor: pointer; user-select: none; }
+.ftable__sort:hover { color: var(--spruce); }
+.ftable__sort::after { content: '↕'; opacity: .35; margin-left: .35em; }
+.ftable__sort.asc::after { content: '↑'; opacity: 1; color: var(--spruce); }
+.ftable__sort.desc::after { content: '↓'; opacity: 1; color: var(--accent); }
+.ftable td {
+  padding: .72rem .6rem; border-bottom: 1px solid var(--rule-soft);
+  text-align: right; font-family: var(--mono); font-size: .92rem; white-space: nowrap;
+}
+.ftable td.ftable__food {
+  text-align: left; font-family: var(--sans); font-weight: 500; font-size: .95rem;
+  padding-left: .2rem; white-space: normal;
+}
+.ftable__cat { font-family: var(--mono); font-size: .72rem; color: var(--ink-35); margin-left: .5em; }
+.ftable__warn { font-size: .74rem; color: var(--accent); white-space: nowrap; }
+.ftable tr:hover td { background: rgba(27,32,28,.03); }
+.ftable__none td { text-align: center; color: var(--ink-35); font-family: var(--sans); padding: 2.2rem 0; }
+.ftable__more { font-family: var(--mono); font-size: .8rem; color: var(--ink-35); padding: .8rem .2rem; }
+.lv-low { color: #5c7028; } .lv-mid { color: #a06a10; } .lv-high { color: var(--accent); font-weight: 700; }
+
+.ftable__add {
+  padding: .3rem .9rem; font-family: var(--mono); font-size: .8rem;
+  border: 1px solid var(--rule-mid); background: transparent; color: var(--ink-70);
+  cursor: pointer; transition: all .2s; white-space: nowrap;
+}
+.ftable__add:hover { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+.ftable__add.added { background: var(--spruce); border-color: var(--spruce); color: var(--paper); }
+
+/* 계산대 — 하단 고정 바 */
+.deck { position: fixed; left: 0; right: 0; bottom: 0; z-index: 200; }
+.deck__bar {
+  display: flex; align-items: center; gap: 1.6rem;
+  padding: .8rem var(--mx);
+  background: var(--ink); color: var(--paper);
+  border-top: 3px double var(--paper);
+}
+.deck__toggle {
+  background: none; border: none; color: var(--paper); cursor: pointer;
+  font-family: var(--sans); font-size: .9rem; font-weight: 500; white-space: nowrap;
+  padding: 0;
+}
+.deck__toggle b { font-family: var(--mono); font-weight: 500; color: #9fc48a; }
+.deck__caret { display: inline-block; font-size: .72rem; margin-left: .3em; transition: transform .25s; }
+.deck.open .deck__caret { transform: rotate(180deg); }
+.deck__sums { display: flex; gap: 1.8rem; flex: 1; min-width: 0; }
+.dsum { min-width: 0; }
+.dsum small {
+  display: block; font-family: var(--mono); font-size: .64rem; letter-spacing: .16em;
+  color: rgba(246,241,231,.55);
+}
+.dsum b { font-family: var(--mono); font-weight: 500; font-size: .92rem; white-space: nowrap; }
+.dsum b i { font-style: normal; color: rgba(246,241,231,.5); font-size: .8em; }
+.dsum b.over { color: #ff9d7a; }
+.dsum__bar { display: block; width: 110px; max-width: 100%; height: 4px; background: rgba(246,241,231,.18); margin-top: .3rem; overflow: hidden; }
+.dsum__bar i { display: block; height: 100%; background: #9fc48a; transition: width .3s; }
+.dsum__bar i.near { background: #e0a94f; }
+.dsum__bar i.over { background: var(--accent); }
+.dsum__bar.mute i { background: rgba(246,241,231,.35); }
+.deck__gear {
+  background: none; border: 1px solid rgba(246,241,231,.5); color: var(--paper);
+  font-family: var(--sans); font-size: .82rem; padding: .45rem 1rem; cursor: pointer;
+  white-space: nowrap; transition: all .2s;
+}
+.deck__gear:hover { border-color: var(--paper); background: var(--paper); color: var(--ink); }
+
+/* 계산대 — 펼침 패널 (영수증) */
+.deck__panel {
+  background: var(--paper); border-top: 1px solid var(--ink);
+  box-shadow: 0 -8px 30px rgba(27,32,28,.18);
+  max-height: min(60vh, 480px); overflow-y: auto;
+}
+.deck__panelgrid {
+  display: grid; grid-template-columns: 1.2fr 1fr; gap: 2.5rem;
+  padding: 1.6rem var(--mx) 1.8rem; max-width: 1080px;
+}
+.deck__panel h3 {
+  font-family: var(--mono); font-size: .74rem; font-weight: 500; letter-spacing: .18em;
+  color: var(--ink-35); border-bottom: 1px dashed var(--rule-mid);
+  padding-bottom: .7rem; margin-bottom: .9rem;
+}
 .tray { list-style: none; margin-bottom: 1rem; }
 .tray__item {
   display: flex; align-items: baseline; gap: .7rem; justify-content: space-between;
@@ -354,23 +408,41 @@ em { font-style: normal; }
 .tray__item strong { font-weight: 500; font-family: var(--sans); }
 .tray__grams { display: flex; align-items: center; gap: .4rem; margin-left: auto; }
 .tray__grams button {
-  width: 20px; height: 20px; border: 1px solid var(--rule-mid); background: transparent;
+  width: 22px; height: 22px; border: 1px solid var(--rule-mid); background: transparent;
   cursor: pointer; font-family: var(--mono); color: var(--ink); line-height: 1;
 }
 .tray__grams button:hover { border-color: var(--ink); }
-.tray__grams b { min-width: 42px; text-align: center; font-family: var(--mono); font-size: .82rem; font-weight: 400; }
-.tray__rm { background: none; border: none; color: var(--ink-35); cursor: pointer; font-size: .88rem; }
+.tray__grams b { min-width: 46px; text-align: center; font-family: var(--mono); font-size: .84rem; font-weight: 400; }
+.tray__rm { background: none; border: none; color: var(--ink-35); cursor: pointer; font-size: .9rem; }
 .tray__rm:hover { color: var(--accent); }
 .tray__empty { font-size: .88rem; color: var(--ink-35); margin-bottom: 1rem; }
 .sums { display: grid; gap: .9rem; border-top: 1px dashed var(--rule-mid); padding-top: 1rem; margin-bottom: 1.3rem; }
-.sum span { font-family: var(--mono); font-size: .76rem; letter-spacing: .12em; color: var(--ink-50); }
-.sum b { display: block; font-family: var(--mono); font-weight: 500; font-size: 1rem; margin: .1rem 0 .3rem; }
-.sum small { font-family: var(--mono); font-size: .76rem; color: var(--ink-35); }
+.sum span { font-family: var(--mono); font-size: .74rem; letter-spacing: .12em; color: var(--ink-50); }
+.sum b { display: block; font-family: var(--mono); font-weight: 500; font-size: .98rem; margin: .1rem 0 .3rem; }
+.sum small { font-family: var(--mono); font-size: .74rem; color: var(--ink-35); }
 .sum__bar { height: 4px; background: var(--rule-soft); overflow: hidden; }
 .sum__bar i { display: block; height: 100%; background: var(--spruce); transition: width .3s; }
 .sum__bar i.near { background: #a06a10; }
 .sum__bar i.over { background: var(--accent); }
 .overtxt { color: var(--accent) !important; font-weight: 700; }
+.deck__clear {
+  padding: .5rem 1.2rem; font-family: var(--sans); font-size: .84rem; font-weight: 500;
+  border: 1px solid var(--rule-mid); background: transparent; color: var(--ink-70); cursor: pointer;
+  transition: all .2s;
+}
+.deck__clear:hover { border-color: var(--accent); color: var(--accent); }
+.targets__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+.targets__grid label {
+  font-family: var(--mono); font-size: .76rem; color: var(--ink-50);
+  display: flex; flex-direction: column; gap: .3rem;
+}
+.targets__grid input {
+  padding: .5rem .2rem; border: none; border-bottom: 1px solid var(--rule-mid);
+  background: transparent; font-family: var(--mono); font-size: 1.05rem; color: var(--ink); outline: none;
+}
+.targets__grid input:focus { border-bottom-color: var(--spruce); }
+.deck__hint { font-size: .82rem; color: var(--ink-50); margin-top: 1rem; line-height: 1.7; }
+.deck__hint strong { color: var(--spruce); }
 
 /* ---------- 차림표 (미슐랭 카르트) ---------- */
 .cover--center { text-align: center; }
@@ -459,12 +531,25 @@ em { font-style: normal; }
   .hero__vert { display: none; }
   .sec__grid { grid-template-columns: 1fr; gap: 1.6rem; }
   .sec__side { position: static; }
-  .scanner__grid { grid-template-columns: 1fr; }
-  .scanner__tray { position: static; }
+  .deck__panelgrid { grid-template-columns: 1fr; gap: 1.8rem; }
+  .deck__bar { gap: 1rem; }
+  .dsum--k, .dsum--p { display: none; } /* 모바일 바에는 나트륨만 — 나머지는 패널에서 */
+  .deck__gear { display: none; }        /* 목표 설정은 패널 안에서 */
   .ledger__row { grid-template-columns: 3rem 1fr; }
   .ledger__row .ledger__body { grid-column: 1 / -1; }
   .speclist__row { grid-template-columns: 2.4rem 1fr; }
   .speclist__row p { grid-column: 2; }
+}
+@media (max-width: 640px) {
+  /* 비교표를 한 화면 폭에 맞춤 — 가로 스크롤 없이 */
+  .ftable { min-width: 0; }
+  .ftable th { font-size: .64rem; padding: .55rem .3rem; letter-spacing: .04em; }
+  .ftable th i { display: none; }
+  .ftable td { font-size: .8rem; padding: .6rem .3rem; }
+  .ftable td.ftable__food { font-size: .84rem; }
+  .ftable__cat { display: block; margin-left: 0; }
+  .ftable__add { padding: .25rem .55rem; font-size: .72rem; }
+  .scanner__searchbox input[type="search"] { font-size: 1rem; padding: .8rem .9rem; }
 }
 @media (max-width: 720px) {
   .mast__issue { display: none; }
