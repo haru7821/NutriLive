@@ -27,6 +27,7 @@
   var deckCount = document.getElementById('deckCount');
   var deckSums = document.getElementById('deckSums');
   var deckGear = document.getElementById('deckGear');
+  var deckOpen = document.getElementById('deckOpen');
 
   var state = { cat: '전체', noPhos: false, sortKey: null, sortDir: null };
   var tray = []; // {food, grams}
@@ -189,9 +190,13 @@
     deckPanel.hidden = !willOpen;
     deck.classList.toggle('open', willOpen);
     deckToggle.setAttribute('aria-expanded', String(willOpen));
+    deckOpen.setAttribute('aria-expanded', String(willOpen));
+    deckOpen.textContent = willOpen ? '내리기 ▼' : '올리기 ▲';
+    deckOpen.title = willOpen ? '식탁 상세를 접습니다' : '담은 식품과 상세 합계를 펼쳐 봅니다';
     if (willOpen && focusTargets) tgNa.focus();
   }
   deckToggle.addEventListener('click', function () { togglePanel(); });
+  deckOpen.addEventListener('click', function () { togglePanel(); });
   deckGear.addEventListener('click', function () { togglePanel(true, true); });
 
   function sumTray() {

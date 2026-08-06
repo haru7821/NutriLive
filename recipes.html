@@ -17,7 +17,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" href="assets/favicon-64.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="css/style.css?v=2">
+<link rel="stylesheet" href="css/style.css?v=3">
 </head>
 <body>
 
@@ -50,6 +50,20 @@
       <p class="carte__title">Nutri<em>Live</em></p>
       <p class="carte__sub">MENU — 低鹽 데귀스타시옹</p>
       <p class="carte__date">VOL.01 · 2026.08</p>
+      <div class="carte__emblem" aria-hidden="true">
+        <svg viewBox="0 0 120 62" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <!-- 숟가락 (좌하 → 우상) -->
+          <path d="M36 52 L74 18"/>
+          <ellipse cx="79" cy="13.5" rx="7.5" ry="5.5" transform="rotate(-42 79 13.5)"/>
+          <!-- 젓가락 한 벌 (우하 → 좌상) -->
+          <path d="M84 52 L46 16 M90 48 L52 12"/>
+          <!-- 주홍 낙관 -->
+          <g stroke="#c8502e" stroke-width="1.6">
+            <circle cx="103" cy="46" r="10"/>
+            <text x="103" y="51" font-size="11" fill="#c8502e" stroke="none" text-anchor="middle" font-family="Gowun Batang, serif" font-weight="700">低</text>
+          </g>
+        </svg>
+      </div>
     </div>
     <div id="recipeGrid"></div>
     <div class="carte__foot">
@@ -84,6 +98,6 @@
 <script src="data/recipes.js?v=2"></script>
 <script src="js/config.js?v=2"></script>
 <script src="js/main.js?v=2"></script>
-<script src="js/recipes.js?v=2"></script>
+<script src="js/recipes.js?v=3"></script>
 </body>
 </html>

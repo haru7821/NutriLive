@@ -17,7 +17,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" href="assets/favicon-64.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="css/style.css?v=2">
+<link rel="stylesheet" href="css/style.css?v=3">
 </head>
 <body class="has-deck">
 
@@ -98,10 +98,11 @@
   </div>
   <div class="deck__bar">
     <button class="deck__toggle" id="deckToggle" type="button" aria-expanded="false" aria-controls="deckPanel">
-      오늘의 식탁 <b id="deckCount">0품</b> <span class="deck__caret">▲</span>
+      오늘의 식탁 <b id="deckCount">0품</b>
     </button>
     <div class="deck__sums" id="deckSums"></div>
     <button class="deck__gear" id="deckGear" type="button">⚙ 내 목표</button>
+    <button class="deck__open" id="deckOpen" type="button" aria-expanded="false" aria-controls="deckPanel" title="담은 식품과 상세 합계를 펼쳐 봅니다">올리기 ▲</button>
   </div>
 </div>
 
@@ -132,6 +133,6 @@
 <script src="data/foods-ext.js?v=2"></script>
 <script src="js/config.js?v=2"></script>
 <script src="js/main.js?v=2"></script>
-<script src="js/tools.js?v=3"></script>
+<script src="js/tools.js?v=4"></script>
 </body>
 </html>

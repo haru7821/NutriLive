@@ -362,8 +362,6 @@ body.has-deck { padding-bottom: 96px; } /* 하단 고정 계산대 자리 확보
   padding: 0;
 }
 .deck__toggle b { font-family: var(--mono); font-weight: 500; color: #9fc48a; }
-.deck__caret { display: inline-block; font-size: .72rem; margin-left: .3em; transition: transform .25s; }
-.deck.open .deck__caret { transform: rotate(180deg); }
 .deck__sums { display: flex; gap: 1.8rem; flex: 1; min-width: 0; }
 .dsum { min-width: 0; }
 .dsum small {
@@ -384,6 +382,12 @@ body.has-deck { padding-bottom: 96px; } /* 하단 고정 계산대 자리 확보
   white-space: nowrap; transition: all .2s;
 }
 .deck__gear:hover { border-color: var(--paper); background: var(--paper); color: var(--ink); }
+.deck__open {
+  background: var(--paper); border: 1px solid var(--paper); color: var(--ink);
+  font-family: var(--sans); font-size: .82rem; font-weight: 700; padding: .45rem 1rem;
+  cursor: pointer; white-space: nowrap; transition: all .2s;
+}
+.deck__open:hover { background: var(--spruce); border-color: var(--spruce); color: var(--paper); }
 
 /* 계산대 — 펼침 패널 (영수증) */
 .deck__panel {
@@ -475,6 +479,10 @@ body.has-deck { padding-bottom: 96px; } /* 하단 고정 계산대 자리 확보
 .course:last-child { margin-bottom: 0; }
 .course__head { margin-bottom: 1.6rem; }
 .course__orn { display: block; font-size: .5rem; color: var(--spruce); margin-bottom: .7rem; }
+.course__orn--illust { width: 46px; margin: 0 auto .6rem; color: var(--spruce); }
+.course__orn--illust svg { width: 100%; height: auto; display: block; }
+.carte__emblem { width: 96px; margin: 1.5rem auto 0; color: var(--ink-70); }
+.carte__emblem svg { width: 100%; height: auto; display: block; }
 .course__head h2 {
   font-family: var(--serif); font-weight: 700; font-size: 1.05rem; letter-spacing: .18em;
   text-indent: .3em; /* letter-spacing 시각 보정 */
