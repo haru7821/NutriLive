@@ -72,8 +72,10 @@
   }
 
   /* ---------- 필터 칩 ---------- */
+  // 칩은 큐레이션 목록의 카테고리만 — DB 확장분(수천 건)의 대분류가 칩을 폭증시키지 않도록.
+  // 확장분 항목은 「전체」와 검색으로 노출됩니다.
   var cats = ['전체'];
-  FOODS.forEach(function (f) {
+  NUTRI_FOODS.forEach(function (f) {
     if (cats.indexOf(f.cat) === -1) cats.push(f.cat);
   });
   cats.forEach(function (c) {

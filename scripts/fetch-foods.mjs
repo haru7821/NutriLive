@@ -26,12 +26,15 @@ const MAX_ITEMS = 3000;   // 사이트 용량 보호 (약 300KB)
 const PAGE_SIZE = 100;
 // ────────────────────────────────────────────────────────
 
+// 포털이 주는 키는 Encoding/Decoding 두 형태 — 이미 %인코딩된 키는 그대로 쓴다 (이중 인코딩 방지)
+const keyParam = /%[0-9A-Fa-f]{2}/.test(KEY) ? KEY : encodeURIComponent(KEY);
+
 const num = v => { const n = parseFloat(v); return isFinite(n) ? Math.round(n * 10) / 10 : null; };
 const out = [];
 let firstLogged = false;
 
 for (let page = 1; out.length < MAX_ITEMS; page++) {
-  const url = `${ENDPOINT}?serviceKey=${encodeURIComponent(KEY)}&pageNo=${page}&numOfRows=${PAGE_SIZE}&type=json`;
+  const url = `${ENDPOINT}?serviceKey=${keyParam}&pageNo=${page}&numOfRows=${PAGE_SIZE}&type=json`;
   const res = await fetch(url);
   if (!res.ok) { console.error('HTTP', res.status, await res.text().then(t => t.slice(0, 300))); break; }
   const json = await res.json().catch(async e => { console.error('JSON 파싱 실패:', (await res.text()).slice(0, 300)); return null; });
