@@ -61,6 +61,14 @@ if (!group) {
 const active = group.active_count ?? 0;
 console.log(`그룹 「${GROUP_NAME}」 활성 구독자: ${active}명`);
 if (active === 0) {
+  // 사이트 폼 연동 설정용 진단 — 계정의 임베드 폼 목록을 함께 출력
+  const forms = await ml('/forms/embedded?limit=25').catch(() => null);
+  if (forms?.data?.length) {
+    console.log('임베드 폼 목록:');
+    forms.data.forEach(f => console.log(`  - "${f.name}" → form code: ${f.id}`));
+  } else {
+    console.log('임베드 폼 없음 — MailerLite에서 Forms → Embedded form을 하나 만들어 주세요.');
+  }
   console.log('구독자가 없어 발송을 건너뜁니다 (정상 종료).');
   process.exit(0);
 }
