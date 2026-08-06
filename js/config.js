@@ -7,6 +7,12 @@ window.NUTRI_CONFIG = {
   FORM_ENDPOINT: "https://formspree.io/f/mqpzkgjl",
   FALLBACK_MAILTO: "haru7821@gmail.com",
 
+  // ①-1 주간 레터 구독 — MailerLite 직결 (계정 번호 + 임베드 폼 코드)
+  //     두 값이 모두 있으면 「주간 레터 구독」 신청이 MailerLite 구독자 명단에 바로 등록됩니다.
+  //     (마켓 사전 등록은 계속 FORM_ENDPOINT로 수집)
+  ML_ACCOUNT: "2560306",
+  ML_FORM: "195064584173782170",
+
   // ② 방문 분석 — GoatCounter(무료, 쿠키 없음) 가입 후 사이트 코드 입력.
   //    예: 코드가 "nutrilive"면 대시보드는 https://nutrilive.goatcounter.com
   ANALYTICS_CODE: "nutrilive"

@@ -43,15 +43,31 @@
 
       function ok() { form.style.display = 'none'; done.classList.add('show'); }
 
-      if (CFG.FORM_ENDPOINT) {
-        var fd = new FormData();
-        fd.append('email', email);
-        fd.append('type', kind);
-        fetch(CFG.FORM_ENDPOINT, { method: 'POST', body: fd, headers: { Accept: 'application/json' } })
+      // 주간 레터 구독은 MailerLite에 직접 등록 (실패 시 기존 경로로 폴백)
+      if (!isPrereg && CFG.ML_ACCOUNT && CFG.ML_FORM) {
+        var mfd = new FormData();
+        mfd.append('fields[email]', email);
+        mfd.append('ml-submit', '1');
+        mfd.append('anticsrf', 'true');
+        fetch('https://assets.mailerlite.com/jsonp/' + CFG.ML_ACCOUNT + '/forms/' + CFG.ML_FORM + '/subscribe',
+          { method: 'POST', body: mfd })
           .then(function (r) { if (!r.ok) throw new Error(r.status); ok(); })
-          .catch(function () { mailFallback(); });
+          .catch(function () { legacySubmit(); });
       } else {
-        mailFallback();
+        legacySubmit();
+      }
+
+      function legacySubmit() {
+        if (CFG.FORM_ENDPOINT) {
+          var fd = new FormData();
+          fd.append('email', email);
+          fd.append('type', kind);
+          fetch(CFG.FORM_ENDPOINT, { method: 'POST', body: fd, headers: { Accept: 'application/json' } })
+            .then(function (r) { if (!r.ok) throw new Error(r.status); ok(); })
+            .catch(function () { mailFallback(); });
+        } else {
+          mailFallback();
+        }
       }
 
       function mailFallback() {
