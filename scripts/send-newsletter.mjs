@@ -6,8 +6,9 @@
 import { readFileSync } from 'fs';
 import { createHash } from 'crypto';
 
-const KEY = process.env.MAILERLITE_API_KEY;
+const KEY = (process.env.MAILERLITE_API_KEY || '').trim(); // 붙여넣기 시 섞인 공백·줄바꿈 방어
 if (!KEY) { console.error('MAILERLITE_API_KEY 시크릿이 없습니다.'); process.exit(1); }
+console.log(`토큰 감지: 길이 ${KEY.length}자, 앞 6자 ${KEY.slice(0, 6)}…`);
 
 const API = 'https://connect.mailerlite.com/api';
 const FROM_EMAIL = process.env.NEWSLETTER_FROM || 'haru7821@gmail.com';
