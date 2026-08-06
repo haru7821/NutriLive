@@ -29,8 +29,11 @@
   var deckGear = document.getElementById('deckGear');
   var deckOpen = document.getElementById('deckOpen');
 
-  var state = { cat: '전체', noPhos: false, sortKey: null, sortDir: null };
+  var state = { cat: '전체', noPhos: false, favOnly: false, sortKey: null, sortDir: null };
   var tray = []; // {food, grams}
+  var recentEl = document.getElementById('recentChips');
+  var favs = [];    // 즐겨찾기 식품명 목록
+  var recents = []; // 최근 검색어 (최신순)
 
   /* ---------- 저장 (이 브라우저에만 보관) ---------- */
   function save(key, val) {
@@ -52,7 +55,39 @@
       items: tray.map(function (t) { return { name: t.food.name, grams: t.grams }; })
     });
   }
+  function saveFavs() { save('nl.favs.v1', favs); }
+  function saveRecents() { save('nl.recent.v1', recents); }
+
+  function renderRecents() {
+    recentEl.hidden = !recents.length;
+    if (!recents.length) { recentEl.innerHTML = ''; return; }
+    recentEl.innerHTML = '<span class="recent__label">최근 검색</span>' +
+      recents.map(function (q) {
+        return '<button type="button" class="recent__chip" data-q="' + q + '">' + q + '</button>';
+      }).join('') +
+      '<button type="button" class="recent__clear" id="recentClear">지우기</button>';
+  }
+  recentEl.addEventListener('click', function (e) {
+    if (e.target.id === 'recentClear') {
+      recents = []; saveRecents(); renderRecents(); return;
+    }
+    var chip = e.target.closest('.recent__chip');
+    if (chip) { searchEl.value = chip.dataset.q; renderRows(); }
+  });
+  var recentTimer = null;
+  function noteSearch() {
+    clearTimeout(recentTimer);
+    recentTimer = setTimeout(function () {
+      var q = (searchEl.value || '').trim();
+      if (q.length < 2) return;
+      recents = [q].concat(recents.filter(function (x) { return x !== q; })).slice(0, 6);
+      saveRecents(); renderRecents();
+    }, 1200);
+  }
+
   function restore() {
+    favs = load('nl.favs.v1') || [];
+    recents = load('nl.recent.v1') || [];
     var tg = load('nl.targets.v1');
     if (tg) {
       if (tg.na !== undefined && tg.na !== '') tgNa.value = tg.na;
@@ -103,6 +138,20 @@
     renderRows();
   });
   chipsEl.appendChild(phosChip);
+  var favChip = document.createElement('button');
+  favChip.type = 'button';
+  favChip.className = 'chip chip--fav';
+  favChip.textContent = '★ 즐겨찾기';
+  favChip.addEventListener('click', function () {
+    state.favOnly = !state.favOnly;
+    favChip.classList.toggle('on', state.favOnly);
+    renderRows();
+  });
+  chipsEl.appendChild(favChip);
+  function syncFavChip() {
+    favChip.style.display = favs.length ? '' : 'none';
+    if (!favs.length && state.favOnly) { state.favOnly = false; favChip.classList.remove('on'); }
+  }
 
   /* ---------- 비교 테이블 ---------- */
   function levelClass(v, kind) {
@@ -142,6 +191,7 @@
     var list = FOODS.filter(function (f) {
       return (state.cat === '전체' || f.cat === state.cat) &&
              (!state.noPhos || !f.phosAdd) &&
+             (!state.favOnly || favs.indexOf(f.name) !== -1) &&
              (!q || f.name.indexOf(q) !== -1);
     });
     if (state.sortKey) {
@@ -159,7 +209,9 @@
 
     var html = list.map(function (f, i) {
       var added = inTray(f.name);
+      var isFav = favs.indexOf(f.name) !== -1;
       return '<tr>' +
+        '<td class="ftable__favcell"><button type="button" class="ftable__fav' + (isFav ? ' on' : '') + '" data-i="' + i + '" title="즐겨찾기 ' + (isFav ? '해제' : '추가') + '">' + (isFav ? '★' : '☆') + '</button></td>' +
         '<td class="ftable__food">' + f.name +
           '<span class="ftable__cat">' + f.cat + '</span>' +
           (f.phosAdd ? ' <span class="ftable__warn" title="인산염 계열 첨가물이 흔히 쓰이는 카테고리 — 원재료명 확인">⚠ 인 첨가물</span>' : '') +
@@ -170,8 +222,10 @@
       '</tr>';
     }).join('');
     rowsEl.innerHTML = html ||
-      '<tr class="ftable__none"><td colspan="5">검색 결과가 없습니다.</td></tr>';
-    rowsEl._list = list; // 담기 버튼 위임용 현재 목록
+      '<tr class="ftable__none"><td colspan="6">' +
+      (state.favOnly ? '즐겨찾기한 식품이 조건에 없어요.' : '검색 결과가 없습니다.') + '</td></tr>';
+    rowsEl._list = list; // 담기·즐겨찾기 버튼 위임용 현재 목록
+    syncFavChip();
 
     moreEl.hidden = total <= MAX_ROWS;
     if (total > MAX_ROWS) {
@@ -180,6 +234,16 @@
   }
 
   rowsEl.addEventListener('click', function (e) {
+    var favBtn = e.target.closest('.ftable__fav');
+    if (favBtn) {
+      var ff = rowsEl._list[parseInt(favBtn.dataset.i, 10)];
+      if (!ff) return;
+      var at = favs.indexOf(ff.name);
+      if (at === -1) favs.push(ff.name); else favs.splice(at, 1);
+      saveFavs();
+      renderRows();
+      return;
+    }
     var btn = e.target.closest('.ftable__add');
     if (!btn) return;
     var f = rowsEl._list[parseInt(btn.dataset.i, 10)];
@@ -296,7 +360,7 @@
   }
 
   /* ---------- 이벤트 ---------- */
-  searchEl.addEventListener('input', renderRows);
+  searchEl.addEventListener('input', function () { renderRows(); noteSearch(); });
   ROWS.forEach(function (r) {
     r.el.addEventListener('input', function () { renderTray(); saveTargets(); });
   });
@@ -307,6 +371,7 @@
   });
 
   restore();
+  renderRecents();
   renderRows();
   renderTray();
   // PC에서는 바로 검색 시작 (모바일은 키보드가 화면을 가려 제외)

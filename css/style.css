@@ -314,6 +314,17 @@ body.has-deck { padding-bottom: 96px; } /* 하단 고정 계산대 자리 확보
 .scanner__searchbox input[type="search"]:focus { border-color: var(--spruce); background: #fff; }
 .scanner__searchbox input::placeholder { color: var(--ink-35); }
 
+/* 최근 검색 */
+.recent { display: flex; align-items: center; flex-wrap: wrap; gap: .45rem; margin-top: .7rem; }
+.recent__label { font-family: var(--mono); font-size: .7rem; letter-spacing: .14em; color: var(--ink-35); margin-right: .2rem; }
+.recent__chip {
+  font-family: var(--sans); font-size: .8rem; padding: .2rem .7rem;
+  border: 1px dashed var(--rule-mid); background: transparent; color: var(--ink-70); cursor: pointer;
+}
+.recent__chip:hover { border-color: var(--spruce); color: var(--spruce); }
+.recent__clear { font-family: var(--mono); font-size: .7rem; border: none; background: none; color: var(--ink-35); cursor: pointer; text-decoration: underline; }
+.recent__clear:hover { color: var(--accent); }
+
 /* 비교 테이블 */
 .ftable__wrap { overflow-x: auto; margin-top: .4rem; }
 .ftable { width: 100%; border-collapse: collapse; min-width: 560px; }
@@ -353,6 +364,44 @@ body.has-deck { padding-bottom: 96px; } /* 하단 고정 계산대 자리 확보
 }
 .ftable__add:hover { border-color: var(--ink); background: var(--ink); color: var(--paper); }
 .ftable__add.added { background: var(--spruce); border-color: var(--spruce); color: var(--paper); }
+.ftable__favhead { text-align: center !important; color: var(--ink-35); padding-left: .1rem !important; padding-right: .1rem !important; }
+.ftable__favcell { text-align: center !important; padding-left: .1rem !important; padding-right: .1rem !important; white-space: nowrap; }
+.ftable__fav {
+  border: none; background: none; cursor: pointer;
+  font-size: 1.02rem; line-height: 1; color: var(--ink-35); padding: .15rem .3rem;
+  transition: color .15s, transform .15s;
+}
+.ftable__fav:hover { color: #c9a227; transform: scale(1.15); }
+.ftable__fav.on { color: #c9a227; }
+.chip--fav { border-color: #c9a227; color: #8a6d1c; }
+.chip--fav.on { background: #c9a227; border-color: #c9a227; color: #fff; }
+
+/* 외식 추정표 */
+.din__tip { display: block; font-family: var(--sans); font-weight: 400; font-size: .8rem; color: var(--ink-50); margin-top: .15rem; white-space: normal; }
+.din__na { font-size: 1.02rem !important; font-weight: 500; }
+.din__na--hi { color: var(--accent); font-weight: 700; }
+.din__na--mid { color: #a06a10; }
+.din__na--lo { color: #5c7028; }
+.din__gaugehead { font-size: .68rem !important; }
+.din__gauge { min-width: 150px; }
+.din__bar { display: inline-block; vertical-align: middle; width: 96px; height: 6px; background: var(--rule-soft); overflow: hidden; }
+.din__bar i { display: block; height: 100%; }
+.din__bar--hi { background: var(--accent); }
+.din__bar--mid { background: #a06a10; }
+.din__bar--lo { background: #5c7028; }
+.din__gauge em { font-style: normal; font-size: .76rem; color: var(--ink-50); margin-left: .5rem; }
+.din__rules { max-width: 640px; margin-top: 2.4rem; border: 1px solid var(--ink); padding: 1.5rem 1.8rem; }
+.din__rules h3 { font-family: var(--serif); font-size: 1.1rem; font-weight: 700; margin-bottom: .8rem; }
+.din__rules ol { margin-left: 1.2rem; font-size: .93rem; color: var(--ink-70); line-height: 1.8; }
+.din__rules li { margin-bottom: .4rem; }
+.din__rules li::marker { font-family: var(--mono); color: var(--accent); }
+.din__cross { margin-top: 1.6rem; font-size: .9rem; color: var(--ink-70); }
+.din__cross a { color: var(--spruce); border-bottom: 1px solid var(--spruce); }
+@media (max-width: 640px) {
+  .din__gauge { min-width: 0; }
+  .din__gauge em { display: none; }
+  .din__bar { width: 56px; }
+}
 
 /* 계산대 — 하단 고정 바 */
 .deck { position: fixed; left: 0; right: 0; bottom: 0; z-index: 200; }

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>외식 나트륨 추정표 — NutriLive</title>
+<meta name="description" content="짬뽕·국밥·치킨·파스타 — 자주 먹는 외식 메뉴의 1인분 나트륨 추정치와 메뉴별 감염 요령을 정리했습니다.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="외식 나트륨 추정표 — NutriLive">
+<meta property="og:description" content="자주 먹는 외식 메뉴의 1인분 나트륨 추정치와 메뉴별 대처 요령.">
+<meta property="og:image" content="https://nutrilive.kr/assets/og-image.png">
+<meta property="og:url" content="https://nutrilive.kr/dining.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="assets/favicon-64.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="stylesheet" href="css/style.css?v=7">
+</head>
+<body>
+
+<nav class="mast" id="nav">
+  <a class="mast__logo" href="index.html">Nutri<em>Live</em></a>
+  <p class="mast__issue">VOL.01 — 2026.08</p>
+  <button class="mast__toggle" id="navToggle" aria-label="메뉴 열기">☰</button>
+  <div class="mast__links" id="navLinks">
+    <a href="tools.html" class="now">성분 판별기</a>
+    <a href="recipes.html">레시피북</a>
+    <a href="index.html#global">해외 큐레이션</a>
+    <a href="market.html">마켓</a>
+    <a href="index.html#news">구독</a>
+  </div>
+</nav>
+
+<header class="cover cover--tool">
+  <p class="label label--accent reveal">02-B — 外食 편람</p>
+  <h1 class="reveal d1">시키기 전에,<br><em>한 그릇의 숫자.</em></h1>
+  <p class="cover__lede reveal d2">
+    자주 시키는 외식 메뉴의 1인분 나트륨 추정치를 모았습니다.
+    같은 메뉴라도 요령에 따라 섭취가 절반까지 줄어듭니다 — 메뉴마다 그 요령을 한 줄씩 붙였습니다.
+  </p>
+</header>
+
+<section class="scanner">
+  <div class="chips reveal" id="dinChips"></div>
+
+  <div class="ftable__wrap reveal d1">
+    <table class="ftable" aria-label="외식 메뉴 나트륨 추정표">
+      <thead>
+        <tr>
+          <th class="ftable__name">메뉴 <i>1인분당 · 요령 포함</i></th>
+          <th class="ftable__sort" data-key="na" role="button" tabindex="0">나트륨<i>mg</i></th>
+          <th class="din__gaugehead">WHO 하루 상한(2,000mg) 대비</th>
+        </tr>
+      </thead>
+      <tbody id="dinRows"></tbody>
+    </table>
+  </div>
+
+  <div class="din__rules reveal">
+    <h3>어디서든 통하는 네 가지</h3>
+    <ol>
+      <li><strong>국물은 반만.</strong> 국물 요리 나트륨의 대부분은 국물에 있습니다 — 남기는 것만으로 30~50% 줄어요.</li>
+      <li><strong>소스는 붓지 말고 찍기.</strong> 부먹→찍먹, 비빔장·드레싱은 덜어가며.</li>
+      <li><strong>간은 넣기 전에 먼저 맛보기.</strong> 다대기·새우젓·소금은 습관적으로 넣기 쉽습니다.</li>
+      <li><strong>곁들임을 의심하기.</strong> 단무지·치킨무 국물·깍두기 국물 — 조용한 나트륨원입니다.</li>
+    </ol>
+  </div>
+
+  <p class="sec__note">
+    ※ 수치는 일반적인 자료 기반의 <strong>1인분 추정 참고치</strong>이며 업소·레시피에 따라 편차가 큽니다.
+    본 표는 일반적인 정보 제공 목적이며, 질환의 진단·관리 수단이 아닙니다. 개인별 식단은 의사·임상영양사와 상담하세요.
+  </p>
+
+  <p class="din__cross">
+    🔍 집밥 재료가 궁금하면 — <a href="tools.html">성분 판별기</a>에서 식약처 데이터 3,000여 종을 검색해 보세요.
+  </p>
+</section>
+
+<footer class="colophon">
+  <div class="colophon__grid">
+    <div class="colophon__id">
+      <a class="mast__logo" href="index.html">Nutri<em>Live</em></a>
+      <p>VOL.01 — 2026.08 · SEOUL</p>
+      <img class="colophon__seal" src="assets/seal.png" alt="NL 인장">
+    </div>
+    <div class="colophon__links">
+      <a href="index.html">홈</a>
+      <a href="tools.html">성분 판별기</a>
+      <a href="recipes.html">레시피북</a>
+      <a href="privacy.html">개인정보처리방침</a>
+      <a href="mailto:hello@nutrilive.kr">제휴 문의</a>
+    </div>
+  </div>
+  <p class="colophon__disclaim">
+    NutriLive는 일반적인 식생활 정보를 제공하는 매체이며, 의학적 진단·조언·치료를 제공하지 않습니다.
+    건강 상태에 따른 식단 조정은 반드시 의사 또는 임상영양사와 상담하세요.
+    소개되는 모든 제품은 일반식품으로, 질병의 예방·치료를 위한 것이 아닙니다.
+    © 2026 NutriLive.
+  </p>
+</footer>
+
+<script src="data/dining.js?v=1"></script>
+<script src="js/config.js?v=2"></script>
+<script src="js/main.js?v=2"></script>
+<script src="js/dining.js?v=1"></script>
+</body>
+</html>
