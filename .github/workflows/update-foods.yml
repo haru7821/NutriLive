@@ -1,0 +1,31 @@
+name: Update food nutrition DB
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 1 1 * *'   # 매월 1일 10:00 KST
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: claude/nutrilive-dev
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Fetch MFDS nutrition DB
+        env:
+          MFDS_API_KEY: ${{ secrets.MFDS_API_KEY }}
+        run: node scripts/fetch-foods.mjs
+      - name: Commit if changed
+        run: |
+          git config user.name "nutrilive-bot"
+          git config user.email "actions@github.com"
+          git add data/foods-ext.js
+          git diff --cached --quiet || git commit -m "chore: refresh food nutrition dataset from MFDS DB"
+          git push

@@ -1,6 +1,12 @@
 // NutriLive 성분 판별기 (베타)
 (function () {
   if (typeof NUTRI_FOODS === 'undefined') return;
+  // 큐레이션 44종 + 식약처 DB 확장분 병합 (중복 이름은 큐레이션 우선)
+  var seen = {};
+  NUTRI_FOODS.forEach(function (f) { seen[f.name] = true; });
+  var FOODS = NUTRI_FOODS.concat((window.NUTRI_FOODS_EXT || []).filter(function (f) {
+    return !seen[f.name];
+  }));
 
   var searchEl = document.getElementById('foodSearch');
   var listEl = document.getElementById('foodList');
@@ -18,7 +24,7 @@
 
   // 카테고리 칩
   var cats = ['전체'];
-  NUTRI_FOODS.forEach(function (f) {
+  FOODS.forEach(function (f) {
     if (cats.indexOf(f.cat) === -1) cats.push(f.cat);
   });
   cats.forEach(function (c) {
@@ -44,7 +50,7 @@
   function renderList() {
     var q = (searchEl.value || '').trim();
     listEl.innerHTML = '';
-    NUTRI_FOODS.filter(function (f) {
+    FOODS.filter(function (f) {
       return (activeCat === '전체' || f.cat === activeCat) &&
              (!q || f.name.indexOf(q) !== -1);
     }).forEach(function (f) {
