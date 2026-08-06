@@ -11,6 +11,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: update-foods
+  cancel-in-progress: false
+
 jobs:
   fetch:
     runs-on: ubuntu-latest
@@ -31,4 +35,5 @@ jobs:
           git config user.email "actions@github.com"
           git add data/foods-ext.js
           git diff --cached --quiet || git commit -m "chore: refresh food nutrition dataset from MFDS DB"
+          git pull --rebase origin claude/nutrilive-dev
           git push

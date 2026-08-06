@@ -51,14 +51,19 @@ for (let page = 1; out.length < MAX_ITEMS; page++) {
   for (const it of items) {
     const na = num(it[FIELD_MAP.na]), k = num(it[FIELD_MAP.k]), p = num(it[FIELD_MAP.p]);
     const name = (it[FIELD_MAP.name] || '').trim();
-    if (!name || na === null || k === null || p === null) continue; // 3축 모두 있는 항목만
-    out.push({ name, cat: (it[FIELD_MAP.cat] || 'DB').trim(), na, k, p });
+    if (!name || na === null) continue; // 나트륨은 필수, 칼륨·인은 없으면 생략(사이트에서 — 표시)
+    const row = { name, cat: (it[FIELD_MAP.cat] || 'DB').trim(), na };
+    if (k !== null) row.k = k;
+    if (p !== null) row.p = p;
+    out.push(row);
     if (out.length >= MAX_ITEMS) break;
   }
   console.log(`page ${page}: 누적 ${out.length}건`);
 }
 
 if (!out.length) { console.error('수집 0건 — FIELD_MAP/ENDPOINT를 점검하세요.'); process.exit(1); }
+const full = out.filter(r => r.k !== undefined && r.p !== undefined).length;
+console.log(`3축 완전 ${full}건 / 나트륨만 ${out.length - full}건`);
 
 const banner = `// 자동 생성 파일 — scripts/fetch-foods.mjs (${new Date().toISOString().slice(0,10)})\n// 출처: 식약처 식품영양성분DB (공공데이터포털) · 100g당 참고치\n`;
 writeFileSync('data/foods-ext.js', banner + 'window.NUTRI_FOODS_EXT = ' + JSON.stringify(out) + ';\n');

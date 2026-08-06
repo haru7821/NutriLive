@@ -337,6 +337,8 @@ body.has-deck { padding-bottom: 96px; } /* 하단 고정 계산대 자리 확보
 .ftable__warn { font-size: .74rem; color: var(--accent); white-space: nowrap; }
 .ftable tr:hover td { background: rgba(27,32,28,.03); }
 .ftable__none td { text-align: center; color: var(--ink-35); font-family: var(--sans); padding: 2.2rem 0; }
+.ftable__miss { color: var(--ink-35); }
+.sums__note { font-size: .78rem; color: var(--ink-35); line-height: 1.7; }
 .ftable__more { font-family: var(--mono); font-size: .8rem; color: var(--ink-35); padding: .8rem .2rem; }
 .lv-low { color: #5c7028; } .lv-mid { color: #a06a10; } .lv-high { color: var(--accent); font-weight: 700; }
 

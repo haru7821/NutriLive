@@ -111,6 +111,11 @@
     return v <= t[0] ? 'lv-low' : v <= t[1] ? 'lv-mid' : 'lv-high';
   }
   function fmt(n) { return Math.round(n).toLocaleString('ko-KR'); }
+  function cell(v, kind) {
+    // 식약처 DB 가공식품 등은 칼륨·인 정보가 없는 경우가 많다 — 빈 값은 — 표시
+    if (v == null) return '<td class="ftable__miss" title="식약처 DB에 정보가 없는 항목">—</td>';
+    return '<td class="' + levelClass(v, kind) + '">' + fmt(v) + '</td>';
+  }
   function inTray(name) {
     return tray.some(function (t) { return t.food.name === name; });
   }
@@ -141,7 +146,13 @@
     });
     if (state.sortKey) {
       var k = state.sortKey, dir = state.sortDir === 'asc' ? 1 : -1;
-      list = list.slice().sort(function (a, b) { return (a[k] - b[k]) * dir; });
+      list = list.slice().sort(function (a, b) {
+        var av = a[k], bv = b[k];
+        if (av == null && bv == null) return 0;
+        if (av == null) return 1;  // 값 미상은 항상 뒤로
+        if (bv == null) return -1;
+        return (av - bv) * dir;
+      });
     }
     var total = list.length;
     if (total > MAX_ROWS) list = list.slice(0, MAX_ROWS);
@@ -153,9 +164,7 @@
           '<span class="ftable__cat">' + f.cat + '</span>' +
           (f.phosAdd ? ' <span class="ftable__warn" title="인산염 계열 첨가물이 흔히 쓰이는 카테고리 — 원재료명 확인">⚠ 인 첨가물</span>' : '') +
         '</td>' +
-        '<td class="' + levelClass(f.na, 'na') + '">' + fmt(f.na) + '</td>' +
-        '<td class="' + levelClass(f.k, 'k') + '">' + fmt(f.k) + '</td>' +
-        '<td class="' + levelClass(f.p, 'p') + '">' + fmt(f.p) + '</td>' +
+        cell(f.na, 'na') + cell(f.k, 'k') + cell(f.p, 'p') +
         '<td><button type="button" class="ftable__add' + (added ? ' added' : '') + '" data-i="' + i + '">' +
           (added ? '담음 ✓' : '+ 담기') + '</button></td>' +
       '</tr>';
@@ -201,13 +210,16 @@
 
   function sumTray() {
     var sum = { na: 0, k: 0, p: 0 };
+    var miss = { na: false, k: false, p: false }; // 값 미상 식품이 섞이면 합계가 과소평가됨을 표시
     tray.forEach(function (item) {
       var r = item.grams / 100;
-      sum.na += item.food.na * r;
-      sum.k += item.food.k * r;
-      sum.p += item.food.p * r;
+      ['na', 'k', 'p'].forEach(function (key) {
+        var v = item.food[key];
+        if (v == null) miss[key] = true;
+        else sum[key] += v * r;
+      });
     });
-    return sum;
+    return { sum: sum, miss: miss };
   }
   var ROWS = [
     { key: 'na', label: '나트륨', el: tgNa },
@@ -241,19 +253,22 @@
       trayEl.appendChild(li);
     });
 
-    var sum = sumTray();
+    var st = sumTray();
+    var sum = st.sum, miss = st.miss;
+    var anyMiss = miss.na || miss.k || miss.p;
     deckCount.textContent = tray.length + '품';
 
-    // 하단 바 — 항상 보이는 실시간 게이지
+    // 하단 바 — 항상 보이는 실시간 게이지 (*: 값 미상 식품 제외된 합계)
     deckSums.innerHTML = ROWS.map(function (r) {
       var v = sum[r.key];
+      var star = miss[r.key] ? '<i>*</i>' : '';
       var tg = parseFloat(r.el.value);
       var hasTg = tg && !isNaN(tg);
       var pct = hasTg ? Math.min(100, v / tg * 100) : 0;
       var over = hasTg && v > tg;
       return '<div class="dsum dsum--' + r.key + '">' +
         '<small>' + r.label + '</small>' +
-        '<b class="' + (over ? 'over' : '') + '">' + fmt(v) +
+        '<b class="' + (over ? 'over' : '') + '">' + fmt(v) + star +
           (hasTg ? ' <i>/ ' + fmt(tg) + '</i>' : ' <i>mg</i>') + '</b>' +
         '<span class="dsum__bar' + (hasTg ? '' : ' mute') + '">' +
           '<i style="width:' + (hasTg ? pct : (v > 0 ? 100 : 0)) + '%" class="' +
@@ -264,16 +279,18 @@
     // 영수증 패널 — 상세 합계 (모바일에서 K·P는 여기서 확인)
     sumsEl.innerHTML = ROWS.map(function (r) {
       var v = sum[r.key];
+      var star = miss[r.key] ? '*' : '';
       var tg = parseFloat(r.el.value);
       if (!tg || isNaN(tg)) {
-        return '<div class="sum"><span>' + r.label + '</span><b>' + fmt(v) + ' mg</b><small>목표 미설정</small></div>';
+        return '<div class="sum"><span>' + r.label + '</span><b>' + fmt(v) + star + ' mg</b><small>목표 미설정</small></div>';
       }
       var pct = Math.min(100, v / tg * 100);
       var over = v > tg;
-      return '<div class="sum"><span>' + r.label + '</span><b>' + fmt(v) + ' / ' + fmt(tg) + ' mg</b>' +
+      return '<div class="sum"><span>' + r.label + '</span><b>' + fmt(v) + star + ' / ' + fmt(tg) + ' mg</b>' +
         '<div class="sum__bar"><i style="width:' + pct + '%" class="' + (over ? 'over' : pct > 80 ? 'near' : '') + '"></i></div>' +
         (over ? '<small class="overtxt">내 목표를 넘었어요</small>' : '') + '</div>';
-    }).join('');
+    }).join('') +
+    (anyMiss ? '<p class="sums__note">* 정보가 없는(—) 식품은 해당 영양소 합계에서 빠져 있어요 — 실제 섭취량은 표시보다 많을 수 있습니다.</p>' : '');
 
     saveTray();
   }
