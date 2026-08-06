@@ -16,10 +16,11 @@ if (!KEY) {
 // ── 조정 지점 ────────────────────────────────────────────
 const ENDPOINT = 'https://apis.data.go.kr/1471000/FoodNtrCpntDbInfo02/getFoodNtrCpntDbInq02';
 const FIELD_MAP = {
+  // 2026-08-06 실측 검증 — 식약처 표준 스키마: NUM9 칼슘, NUM10 철, NUM11 인, NUM12 칼륨, NUM13 나트륨
   name: 'FOOD_NM_KR',   // 식품명
   na:   'AMT_NUM13',    // 나트륨(mg/100g)
-  k:    'AMT_NUM6',     // 칼륨(mg/100g)
-  p:    'AMT_NUM5',     // 인(mg/100g)
+  k:    'AMT_NUM12',    // 칼륨(mg/100g)
+  p:    'AMT_NUM11',    // 인(mg/100g)
   cat:  'FOOD_CAT1_NM'  // 대분류
 };
 const MAX_ITEMS = 3000;   // 사이트 용량 보호 (약 300KB)
