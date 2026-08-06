@@ -130,11 +130,34 @@
       items.forEach(function (r) {
         var d = document.createElement('article');
         d.className = 'dish';
+        var detail = '';
+        if (r.steps && r.ingredients) {
+          detail =
+            '<button type="button" class="dish__open">레시피 펼치기 ▾</button>' +
+            '<div class="dish__detail" hidden>' +
+              '<h4>재료 — ' + (r.serves || '2인분') + '</h4>' +
+              '<div class="dish__ing">' + r.ingredients.map(function (i) {
+                return '<span>' + i[0] + '<b>' + i[1] + '</b></span>';
+              }).join('') + '</div>' +
+              '<h4>만드는 법</h4>' +
+              '<ol>' + r.steps.map(function (s) { return '<li>' + s + '</li>'; }).join('') + '</ol>' +
+              (r.naNote ? '<div class="dish__point"><b>나트륨 계산 — </b>' + r.naNote + '</div>' : '') +
+            '</div>';
+        }
         d.innerHTML =
           '<h3>' + r.name + '</h3>' +
-          '<p class="dish__na">Na ' + r.na + ' mg — ' + r.time + ' min</p>' +
+          '<p class="dish__na">Na ' + r.na + ' mg — ' + r.time + ' min' + (r.serves ? ' · ' + r.serves : '') + '</p>' +
           '<p class="dish__desc">' + r.desc + '</p>' +
-          '<p class="dish__tip">셰프의 메모 — ' + r.tip + '</p>';
+          '<p class="dish__tip">셰프의 메모 — ' + r.tip + '</p>' +
+          detail;
+        var btn = d.querySelector('.dish__open');
+        if (btn) {
+          btn.addEventListener('click', function () {
+            var dt = d.querySelector('.dish__detail');
+            dt.hidden = !dt.hidden;
+            btn.textContent = dt.hidden ? '레시피 펼치기 ▾' : '레시피 접기 ▴';
+          });
+        }
         sec.appendChild(d);
       });
       grid.appendChild(sec);
