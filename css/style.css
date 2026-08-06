@@ -1,5 +1,5 @@
 /* ============================================================
-   NutriLive — 食卓 季刊 (식탁 위의 계간지)
+   NutriLive — 식탁 위의 매거진
    아이보리 지면 · 먹색 잉크 · 주홍 낙관 하나
    괘선 그리드 / 차림표 점선 리더 / 세로쓰기 / 판권면
    ============================================================ */
@@ -39,7 +39,7 @@ em { font-style: normal; }
   font-size: .82rem; font-weight: 700; letter-spacing: .18em;
   color: var(--ink-50);
 }
-.label--accent { color: var(--accent); }
+.label--accent { color: var(--spruce); }
 
 /* ---------- 제자(題字) · 상단 ---------- */
 .mast {
@@ -72,7 +72,7 @@ em { font-style: normal; }
   border-bottom: 1px solid var(--ink); transition: right .25s ease;
 }
 .mast__links a:hover::after { right: 0; }
-.mast__links a.now { border-bottom: 1px solid var(--accent); }
+.mast__links a.now { border-bottom: 1px solid var(--spruce); }
 .mast__toggle { display: none; background: none; border: none; font-size: 1.3rem; color: var(--ink); cursor: pointer; margin-left: auto; }
 
 /* ---------- 표지 (히어로) ---------- */
@@ -109,7 +109,7 @@ em { font-style: normal; }
   padding: .85rem .2rem; transition: padding-left .25s ease;
 }
 .toc a:hover { padding-left: .9rem; }
-.toc a:hover .toc__t { color: var(--accent); }
+.toc a:hover .toc__t { color: var(--spruce); }
 .toc__no { font-family: var(--mono); font-size: .82rem; color: var(--accent); }
 .toc__t { font-family: var(--serif); font-size: 1.05rem; font-weight: 700; }
 .toc__dots { flex: 1; border-bottom: 1px dotted var(--rule-mid); transform: translateY(-4px); }
@@ -117,7 +117,7 @@ em { font-style: normal; }
 
 .hero__foot { margin-top: 2.4rem; display: flex; align-items: center; gap: 1.6rem; flex-wrap: wrap; }
 .hero__note { font-size: .88rem; color: var(--ink-50); }
-.hero__note a { border-bottom: 1px solid var(--accent); color: var(--accent); }
+.hero__note a { border-bottom: 1px solid var(--spruce); color: var(--spruce); }
 
 /* 데이터 괘선 행 */
 .dataline {
@@ -185,7 +185,7 @@ em { font-style: normal; }
 .menu__desc { font-size: .94rem; font-weight: 400; color: var(--ink-70); margin-top: .45rem; max-width: 46em; }
 .menu__meta { font-family: var(--mono); font-size: .8rem; color: var(--ink-35); margin-top: .4rem; }
 .menu__tip {
-  margin-top: .7rem; padding-left: 1rem; border-left: 2px solid var(--accent);
+  margin-top: .7rem; padding-left: 1rem; border-left: 2px solid var(--spruce);
   font-size: .9rem; color: var(--ink-70); max-width: 44em;
 }
 
@@ -228,10 +228,10 @@ em { font-style: normal; }
 }
 .btn:hover { background: var(--ink); color: var(--paper); }
 .btn--main { background: var(--ink); color: var(--paper); }
-.btn--main:hover { background: var(--accent); border-color: var(--accent); }
+.btn--main:hover { background: var(--spruce); border-color: var(--spruce); }
 .sec--ink .btn { border-color: var(--paper); color: var(--paper); }
 .sec--ink .btn:hover, .sec--ink .btn--main { background: var(--paper); color: var(--ink); }
-.sec--ink .btn--main:hover { background: var(--accent); border-color: var(--accent); color: var(--paper); }
+.sec--ink .btn--main:hover { background: var(--spruce); border-color: var(--spruce); color: var(--paper); }
 .arrow::after { content: ' →'; }
 
 /* ---------- 구독 (지로용지 풍) ---------- */
@@ -250,6 +250,7 @@ em { font-style: normal; }
   font-family: var(--sans); font-size: .96rem; color: var(--ink); outline: none;
 }
 .news__form input::placeholder { color: var(--ink-35); }
+.news__form input:focus { border-color: var(--spruce); outline: none; }
 .news__done { display: none; color: var(--spruce); font-weight: 700; margin-top: 1.2rem; font-size: .96rem; }
 .news__done.show { display: block; }
 
@@ -292,7 +293,7 @@ em { font-style: normal; }
   border: 1px solid var(--rule-mid); background: transparent; color: var(--ink-70);
   cursor: pointer; transition: all .2s;
 }
-.chip:hover { border-color: var(--ink); color: var(--ink); }
+.chip:hover { border-color: var(--spruce); color: var(--spruce); }
 .chip.on { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 
 /* ---------- 성분 판별기 ---------- */
@@ -310,14 +311,14 @@ em { font-style: normal; }
   padding: .55rem .2rem; border: none; border-bottom: 1px solid var(--rule-mid);
   background: transparent; font-family: var(--mono); font-size: 1.05rem; color: var(--ink); outline: none;
 }
-.targets__grid input:focus { border-bottom-color: var(--accent); }
+.targets__grid input:focus { border-bottom-color: var(--spruce); }
 .scanner__grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 3rem; align-items: start; border-top: 1px solid var(--rule); padding-top: 1.8rem; }
 .scanner__search input[type="search"] {
   width: 100%; padding: .7rem .2rem;
   border: none; border-bottom: 1px solid var(--ink);
   background: transparent; font-family: var(--sans); font-size: 1rem; color: var(--ink); outline: none;
 }
-.scanner__search input[type="search"]:focus { border-bottom-color: var(--accent); }
+.scanner__search input[type="search"]:focus { border-bottom-color: var(--spruce); }
 .foodlist { list-style: none; max-height: 560px; overflow-y: auto; }
 .food { border-bottom: 1px solid var(--rule-soft); padding: .95rem .1rem; }
 .food--none { color: var(--ink-35); text-align: center; padding: 2rem 0; }
@@ -401,7 +402,7 @@ em { font-style: normal; }
 .course { margin-bottom: 2.8rem; }
 .course:last-child { margin-bottom: 0; }
 .course__head { margin-bottom: 1.6rem; }
-.course__orn { display: block; font-size: .5rem; color: var(--accent); margin-bottom: .7rem; }
+.course__orn { display: block; font-size: .5rem; color: var(--spruce); margin-bottom: .7rem; }
 .course__head h2 {
   font-family: var(--serif); font-weight: 700; font-size: 1.05rem; letter-spacing: .18em;
   text-indent: .3em; /* letter-spacing 시각 보정 */
@@ -443,7 +444,7 @@ em { font-style: normal; }
 .faq h2 { font-family: var(--serif); font-size: 1.5rem; font-weight: 700; margin-bottom: 1.2rem; }
 .faq details { border-bottom: 1px solid var(--rule-soft); padding: 1rem 0; }
 .faq summary { cursor: pointer; font-weight: 700; font-size: .97rem; list-style: none; }
-.faq summary::before { content: '問 '; font-family: var(--serif); color: var(--accent); }
+.faq summary::before { content: '問 '; font-family: var(--serif); color: var(--spruce); }
 .faq details p { margin-top: .7rem; font-size: .92rem; font-weight: 400; color: var(--ink-70); padding-left: 1.4rem; }
 
 /* ---------- 리빌 ---------- */
