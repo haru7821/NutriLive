@@ -6,7 +6,7 @@ on:
     - cron: '0 0 * * 2'   # 매주 화요일 09:00 KST
   push:
     branches: [claude/nutrilive-dev]
-    paths: ['newsletter/latest.html']   # 새 호 푸시 = 발송 트리거 (해시 중복 방지 내장)
+    paths: ['newsletter/latest.html', 'scripts/send-newsletter.mjs', '.github/workflows/send-newsletter.yml']   # 새 호 푸시 = 발송 트리거 (해시 중복 방지 내장)
 
 concurrency:
   group: send-newsletter

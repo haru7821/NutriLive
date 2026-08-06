@@ -13,7 +13,6 @@ console.log(`토큰 감지: 길이 ${KEY.length}자, 앞 6자 ${KEY.slice(0, 6)}
 const API = 'https://connect.mailerlite.com/api';
 const FROM_EMAIL = process.env.NEWSLETTER_FROM || 'haru7821@gmail.com';
 const FROM_NAME = 'NutriLive';
-const GROUP_NAME = 'NutriLive 주간 레터';
 
 async function ml(path, method = 'GET', body) {
   const res = await fetch(API + path, {
@@ -51,15 +50,12 @@ for (const list of [existing, drafts]) {
   }
 }
 
-// 3) 구독자 그룹 확보 (없으면 생성)
+// 3) 발송 대상 — 활성 구독자가 있는 모든 그룹
+//    (사이트 임베드 폼이 붙는 그룹과 API로 만든 그룹이 다를 수 있으므로, 그룹명을 고정하지 않는다)
 const groups = await ml('/groups?limit=100');
-let group = groups.data.find(g => g.name === GROUP_NAME);
-if (!group) {
-  group = (await ml('/groups', 'POST', { name: GROUP_NAME })).data;
-  console.log('그룹 생성:', GROUP_NAME);
-}
-const active = group.active_count ?? 0;
-console.log(`그룹 「${GROUP_NAME}」 활성 구독자: ${active}명`);
+groups.data.forEach(g => console.log(`그룹 「${g.name}」 활성 구독자: ${g.active_count ?? 0}명`));
+const targets = groups.data.filter(g => (g.active_count ?? 0) > 0);
+const active = targets.reduce((n, g) => n + (g.active_count ?? 0), 0);
 if (active === 0) {
   // 사이트 폼 연동 설정용 진단 — 계정의 임베드 폼 목록을 함께 출력
   const forms = await ml('/forms/embedded?limit=25').catch(() => null);
@@ -77,7 +73,7 @@ if (active === 0) {
 const campaign = await ml('/campaigns', 'POST', {
   name: campaignName,
   type: 'regular',
-  groups: [group.id],
+  groups: targets.map(g => g.id),
   emails: [{
     subject,
     from_name: FROM_NAME,
