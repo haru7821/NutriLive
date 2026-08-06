@@ -55,7 +55,15 @@ for (const list of [existing, drafts]) {
 const groups = await ml('/groups?limit=100');
 groups.data.forEach(g => console.log(`그룹 「${g.name}」 활성 구독자: ${g.active_count ?? 0}명`));
 const targets = groups.data.filter(g => (g.active_count ?? 0) > 0);
-const active = targets.reduce((n, g) => n + (g.active_count ?? 0), 0);
+let active = targets.reduce((n, g) => n + (g.active_count ?? 0), 0);
+let sendToAll = false;
+if (active === 0) {
+  // 그룹 미배정 구독자 대비 — 계정 전체의 활성 구독자를 확인하고, 있으면 전체 발송으로 전환
+  const subs = await ml('/subscribers?filter[status]=active&limit=100').catch(() => null);
+  const total = subs?.data?.length ?? 0;
+  console.log(`그룹 미배정 포함 계정 전체 활성 구독자: ${total}명`);
+  if (total > 0) { active = total; sendToAll = true; }
+}
 if (active === 0) {
   // 사이트 폼 연동 설정용 진단 — 계정의 임베드 폼 목록을 함께 출력
   const forms = await ml('/forms/embedded?limit=25').catch(() => null);
@@ -73,7 +81,7 @@ if (active === 0) {
 const campaign = await ml('/campaigns', 'POST', {
   name: campaignName,
   type: 'regular',
-  groups: targets.map(g => g.id),
+  ...(sendToAll ? {} : { groups: targets.map(g => g.id) }),   // 그룹 미지정 = 전체 활성 구독자에게 발송
   emails: [{
     subject,
     from_name: FROM_NAME,
