@@ -32,6 +32,10 @@ body {
 }
 a { color: inherit; text-decoration: none; }
 em { font-style: normal; }
+/* 한글 제목은 단어 단위로만 줄바꿈 — 「없\n는」 같은 글자 찢김 방지 */
+h1, h2, h3, h4, .toc__t, .dish h3, .menu__name, .speclist__name {
+  word-break: keep-all; overflow-wrap: break-word;
+}
 ::selection { background: var(--accent); color: var(--paper); }
 
 /* 작은 라벨 공통 */
