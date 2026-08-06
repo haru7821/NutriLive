@@ -9,5 +9,5 @@ window.NUTRI_CONFIG = {
 
   // ② 방문 분석 — GoatCounter(무료, 쿠키 없음) 가입 후 사이트 코드 입력.
   //    예: 코드가 "nutrilive"면 대시보드는 https://nutrilive.goatcounter.com
-  ANALYTICS_CODE: "ANALYTICS_CODE: "nutrilive","
+  ANALYTICS_CODE: "ANALYTICS_CODE: "cnh7821","
 };
