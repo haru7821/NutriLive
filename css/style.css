@@ -582,8 +582,9 @@ body.has-deck { padding-bottom: 96px; } /* 하단 고정 계산대 자리 확보
 .dish__ing span {
   display: flex; justify-content: space-between; gap: .8rem;
   border-bottom: 1px dotted rgba(27,32,28,.15); padding: .25rem 0;
+  word-break: keep-all; /* 재료명이 글자 단위로 세로로 쌓이는 것 방지 */
 }
-.dish__ing b { font-family: var(--mono); font-weight: 400; color: var(--ink-50); white-space: nowrap; }
+.dish__ing b { font-family: var(--mono); font-weight: 400; color: var(--ink-50); text-align: right; word-break: keep-all; }
 .dish__detail ol { margin-left: 1.1rem; font-size: .88rem; line-height: 1.7; color: var(--ink-70); }
 .dish__detail ol li { margin-bottom: .5rem; padding-left: .2rem; }
 .dish__detail ol li::marker { font-family: var(--mono); font-size: .78rem; color: var(--accent); }
