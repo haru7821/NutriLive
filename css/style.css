@@ -519,6 +519,44 @@ body.has-deck { padding-bottom: 96px; } /* 하단 고정 계산대 자리 확보
 .faq summary::before { content: '問 '; font-family: var(--serif); color: var(--spruce); }
 .faq details p { margin-top: .7rem; font-size: .92rem; font-weight: 400; color: var(--ink-70); padding-left: 1.4rem; }
 
+/* ---------- 아티클 (해외 큐레이션 본문) ---------- */
+.cover--article { padding-bottom: 2rem; }
+.cover--article h1 { max-width: 15em; }
+.article__meta { font-family: var(--mono); font-size: .8rem; color: var(--ink-35); margin-top: 1.4rem; letter-spacing: .04em; }
+.article { padding: 0 var(--mx) 4.5rem; max-width: 820px; }
+.article h2 {
+  font-family: var(--serif); font-size: 1.3rem; font-weight: 700;
+  margin: 2.8rem 0 .9rem; padding-top: 1.6rem; border-top: 1px solid var(--rule);
+}
+.article h2:first-child { margin-top: 0; }
+.article h2 span { font-family: var(--mono); font-size: .82rem; font-weight: 400; color: var(--accent); margin-right: .6rem; }
+.article p { font-size: .97rem; font-weight: 400; color: var(--ink-70); margin-bottom: 1rem; max-width: 46em; }
+.article ul { margin: 0 0 1.1rem 1.3rem; font-size: .95rem; color: var(--ink-70); }
+.article li { margin-bottom: .5rem; }
+.article li::marker { color: var(--spruce); }
+.article strong { color: var(--ink); }
+.article__callout {
+  border-left: 2px solid var(--spruce); background: rgba(49,81,63,.06);
+  padding: 1rem 1.3rem; margin: 1.5rem 0; font-size: .93rem; color: var(--ink-70); max-width: 44em;
+}
+.article__callout strong { color: var(--spruce); }
+.article__callout--warn { border-left-color: var(--accent); background: rgba(200,80,46,.05); }
+.article__callout--warn strong { color: var(--accent); }
+.article__src {
+  font-family: var(--mono); font-size: .78rem; color: var(--ink-35); line-height: 1.9;
+  margin-top: 2.6rem; padding-top: 1.2rem; border-top: 1px dashed var(--rule-mid);
+}
+.article__nav {
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+  margin-top: 2.2rem; padding-top: 1.4rem; border-top: 1px solid var(--rule);
+  font-size: .9rem; font-weight: 500;
+}
+.article__nav a { color: var(--spruce); border-bottom: 1px solid var(--spruce); padding-bottom: 1px; }
+.article__nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.note h3 a { transition: color .2s; }
+.note h3 a:hover { color: var(--spruce); }
+.note cite a { color: var(--spruce); border-bottom: 1px solid var(--spruce); }
+
 /* ---------- 리빌 ---------- */
 .reveal { opacity: 0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease; }
 .reveal.on { opacity: 1; transform: none; }
