@@ -267,8 +267,8 @@ h1, h2, h3, h4, .toc__t, .dish h3, .menu__name, .speclist__name {
 .colophon__grid { display: flex; flex-wrap: wrap; gap: 2.5rem; justify-content: space-between; }
 .colophon__id .mast__logo { font-size: 1.1rem; }
 .colophon__id p { font-family: var(--mono); font-size: .8rem; color: var(--ink-35); margin-top: .4rem; }
-.colophon__links { display: flex; gap: 1.8rem; font-size: .9rem; align-items: baseline; }
-.colophon__links a { border-bottom: 1px solid transparent; }
+.colophon__links { display: flex; flex-wrap: wrap; gap: .6rem 1.8rem; font-size: .9rem; align-items: baseline; }
+.colophon__links a { border-bottom: 1px solid transparent; white-space: nowrap; }
 .colophon__links a:hover { border-bottom-color: var(--ink); }
 .colophon__disclaim {
   margin-top: 2rem; padding-top: 1.4rem; border-top: 1px solid var(--rule-soft);
