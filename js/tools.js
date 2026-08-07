@@ -1,12 +1,17 @@
 // NutriLive 성분 판별기 (베타) — 검색 → 비교표 → 하단 계산대
 (function () {
   if (typeof NUTRI_FOODS === 'undefined') return;
-  // 큐레이션 44종 + 식약처 DB 확장분 병합 (중복 이름은 큐레이션 우선)
+  // 큐레이션 44종으로 즉시 시작 — 식약처 DB 확장분(약 240KB)은 첫 화면을 막지 않게
+  // 아래(파일 끝)에서 비동기로 불러와 병합한다 (중복 이름은 큐레이션 우선)
   var seen = {};
   NUTRI_FOODS.forEach(function (f) { seen[f.name] = true; });
-  var FOODS = NUTRI_FOODS.concat((window.NUTRI_FOODS_EXT || []).filter(function (f) {
-    return !seen[f.name];
-  }));
+  var FOODS = NUTRI_FOODS.slice();
+  function mergeExt() {
+    (window.NUTRI_FOODS_EXT || []).forEach(function (f) {
+      if (!seen[f.name]) { seen[f.name] = true; FOODS.push(f); }
+    });
+  }
+  mergeExt();
 
   var MAX_ROWS = 200; // DB 확장 대비 — 넘치면 검색어를 좁히도록 안내
 
@@ -49,10 +54,11 @@
   function saveTargets() {
     save('nl.targets.v1', { na: tgNa.value, k: tgK.value, p: tgP.value });
   }
+  var pendingTray = []; // 확장 DB 로드 전이라 아직 식품을 못 찾은 저장 항목 — 유실 방지용
   function saveTray() {
     save('nl.tray.v1', {
       date: today(),
-      items: tray.map(function (t) { return { name: t.food.name, grams: t.grams }; })
+      items: tray.map(function (t) { return { name: t.food.name, grams: t.grams }; }).concat(pendingTray)
     });
   }
   function saveFavs() { save('nl.favs.v1', favs); }
@@ -97,14 +103,27 @@
     var tr = load('nl.tray.v1');
     if (tr && tr.date === today() && tr.items) { // 「오늘의」 식탁 — 날짜 지나면 새로
       tr.items.forEach(function (it) {
+        var found = null;
         for (var i = 0; i < FOODS.length; i++) {
-          if (FOODS[i].name === it.name) {
-            tray.push({ food: FOODS[i], grams: it.grams || 100 });
-            break;
-          }
+          if (FOODS[i].name === it.name) { found = FOODS[i]; break; }
         }
+        if (found) tray.push({ food: found, grams: it.grams || 100 });
+        else pendingTray.push({ name: it.name, grams: it.grams || 100 });
       });
     }
+  }
+  function restorePending() { // 확장 DB 도착 후 보류 항목 다시 매칭
+    if (!pendingTray.length) return;
+    var rest = [];
+    pendingTray.forEach(function (it) {
+      var found = null;
+      for (var i = 0; i < FOODS.length; i++) {
+        if (FOODS[i].name === it.name) { found = FOODS[i]; break; }
+      }
+      if (found) tray.push({ food: found, grams: it.grams });
+      else rest.push(it);
+    });
+    pendingTray = rest;
   }
 
   /* ---------- 필터 칩 ---------- */
@@ -393,4 +412,18 @@
   renderTray();
   // PC에서는 바로 검색 시작 (모바일은 키보드가 화면을 가려 제외)
   if (window.innerWidth > 860) searchEl.focus();
+
+  // 식약처 DB 확장분 비동기 로드 — 도착하면 병합하고 화면 갱신
+  if (!window.NUTRI_FOODS_EXT) {
+    var ext = document.createElement('script');
+    ext.src = 'data/foods-ext.js?v=2';
+    ext.async = true;
+    ext.onload = function () {
+      mergeExt();
+      restorePending();
+      renderRows();
+      renderTray();
+    };
+    document.body.appendChild(ext);
+  }
 })();

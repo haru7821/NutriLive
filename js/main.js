@@ -6,11 +6,17 @@
   var toggle = document.getElementById('navToggle');
   var links = document.getElementById('navLinks');
   if (toggle && links) {
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-controls', 'navLinks');
     toggle.addEventListener('click', function () {
-      links.classList.toggle('open');
+      var open = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(open));
     });
     links.addEventListener('click', function (e) {
-      if (e.target.tagName === 'A') links.classList.remove('open');
+      if (e.target.tagName === 'A') {
+        links.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
     });
   }
 
@@ -41,7 +47,20 @@
       var isPrereg = /market/.test(location.pathname);
       var kind = isPrereg ? 'Slowspoon 마켓 사전 등록' : '주간 레터 구독';
 
-      function ok() { form.style.display = 'none'; done.classList.add('show'); }
+      // 전송 중 중복 클릭 방지 + 진행 표시
+      var btn = form.querySelector('button');
+      var btnLabel = btn ? btn.textContent : '';
+      if (btn) {
+        if (btn.disabled) return;
+        btn.disabled = true;
+        btn.textContent = '신청 중…';
+      }
+
+      function ok() {
+        if (btn) { btn.disabled = false; btn.textContent = btnLabel; }
+        form.style.display = 'none';
+        done.classList.add('show');
+      }
 
       // 주간 레터 구독은 MailerLite에 직접 등록 (실패 시 기존 경로로 폴백)
       if (!isPrereg && CFG.ML_ACCOUNT && CFG.ML_FORM) {

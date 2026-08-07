@@ -167,5 +167,38 @@
     }
   }
 
+  /* ── 검색엔진용 구조화 데이터(JSON-LD) — 공개된 레시피 전체, 데이터와 자동 동기화 ── */
+  (function () {
+    var pub = NUTRI_RECIPES.filter(function (r) { return (r.mon || FIRST_MON) <= CUR; });
+    var ld = {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: 'NutriLive 레시피북',
+      itemListElement: pub.map(function (r, i) {
+        return {
+          '@type': 'ListItem',
+          position: i + 1,
+          item: {
+            '@type': 'Recipe',
+            name: r.name,
+            description: r.desc,
+            recipeCategory: r.cat,
+            totalTime: 'PT' + r.time + 'M',
+            recipeYield: r.serves || '2인분',
+            recipeIngredient: (r.ingredients || []).map(function (p) { return p[0] + ' ' + p[1]; }),
+            recipeInstructions: (r.steps || []).map(function (s) { return { '@type': 'HowToStep', text: s }; }),
+            nutrition: { '@type': 'NutritionInformation', sodiumContent: r.na + ' mg' },
+            author: { '@type': 'Organization', name: 'NutriLive', url: 'https://nutrilive.kr' },
+            inLanguage: 'ko'
+          }
+        };
+      })
+    };
+    var s = document.createElement('script');
+    s.type = 'application/ld+json';
+    s.textContent = JSON.stringify(ld);
+    document.head.appendChild(s);
+  })();
+
   render();
 })();

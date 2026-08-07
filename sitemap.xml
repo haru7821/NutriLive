@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://nutrilive.kr/</loc></url>
-  <url><loc>https://nutrilive.kr/tools.html</loc></url>
-  <url><loc>https://nutrilive.kr/dining.html</loc></url>
-  <url><loc>https://nutrilive.kr/recipes.html</loc></url>
-  <url><loc>https://nutrilive.kr/market.html</loc></url>
-  <url><loc>https://nutrilive.kr/global-nkf.html</loc></url>
-  <url><loc>https://nutrilive.kr/global-bento.html</loc></url>
-  <url><loc>https://nutrilive.kr/global-med.html</loc></url>
-  <url><loc>https://nutrilive.kr/global-dash.html</loc></url>
-  <url><loc>https://nutrilive.kr/global-shio.html</loc></url>
+  <url><loc>https://nutrilive.kr/</loc><lastmod>2026-08-07</lastmod></url>
+  <url><loc>https://nutrilive.kr/tools.html</loc><lastmod>2026-08-07</lastmod></url>
+  <url><loc>https://nutrilive.kr/dining.html</loc><lastmod>2026-08-07</lastmod></url>
+  <url><loc>https://nutrilive.kr/recipes.html</loc><lastmod>2026-08-07</lastmod></url>
+  <url><loc>https://nutrilive.kr/market.html</loc><lastmod>2026-08-07</lastmod></url>
+  <url><loc>https://nutrilive.kr/global-nkf.html</loc><lastmod>2026-08-06</lastmod></url>
+  <url><loc>https://nutrilive.kr/global-bento.html</loc><lastmod>2026-08-06</lastmod></url>
+  <url><loc>https://nutrilive.kr/global-med.html</loc><lastmod>2026-08-06</lastmod></url>
+  <url><loc>https://nutrilive.kr/global-dash.html</loc><lastmod>2026-08-06</lastmod></url>
+  <url><loc>https://nutrilive.kr/global-shio.html</loc><lastmod>2026-08-06</lastmod></url>
 </urlset>

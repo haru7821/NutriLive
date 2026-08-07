@@ -28,11 +28,15 @@
     chipsEl.appendChild(b);
   });
 
-  sortTh.addEventListener('click', function () {
+  function toggleSort() {
     sortDir = sortDir === 'desc' ? 'asc' : 'desc';
     sortTh.classList.toggle('desc', sortDir === 'desc');
     sortTh.classList.toggle('asc', sortDir === 'asc');
     render();
+  }
+  sortTh.addEventListener('click', toggleSort);
+  sortTh.addEventListener('keydown', function (e) { // 키보드 사용자도 정렬 가능하게
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleSort(); }
   });
   sortTh.classList.add('desc');
 
@@ -58,6 +62,31 @@
       '</tr>';
     }).join('');
   }
+
+  /* ── 검색엔진용 구조화 데이터(JSON-LD) — 데이터와 자동 동기화 ── */
+  (function () {
+    var ld = {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: '외식 메뉴 나트륨 추정표',
+      description: '자주 먹는 외식 메뉴의 1인분 나트륨 추정 참고치',
+      itemListElement: NUTRI_DINING.map(function (d, i) {
+        return {
+          '@type': 'ListItem',
+          position: i + 1,
+          item: {
+            '@type': 'MenuItem',
+            name: d.name,
+            nutrition: { '@type': 'NutritionInformation', sodiumContent: d.na + ' mg' }
+          }
+        };
+      })
+    };
+    var s = document.createElement('script');
+    s.type = 'application/ld+json';
+    s.textContent = JSON.stringify(ld);
+    document.head.appendChild(s);
+  })();
 
   render();
 })();
