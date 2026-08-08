@@ -21,6 +21,8 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
+/* 키보드 포커스 링 — 브라우저 기본 파란 링 대신 지면과 어울리는 주홍 */
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 /* 모바일 사파리가 고정 패널 안 글자를 임의로 키우는 것 방지 */
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 body {
@@ -356,6 +358,12 @@ body.has-deck { padding-bottom: 96px; } /* 하단 고정 계산대 자리 확보
 .ftable__miss { color: var(--ink-35); }
 .sums__note { font-size: .78rem; color: var(--ink-35); line-height: 1.7; }
 .ftable__more { font-family: var(--mono); font-size: .8rem; color: var(--ink-35); padding: .8rem .2rem; }
+.ftable__morebtn {
+  margin: 0 .2rem; padding: .4rem 1.1rem; font-family: var(--mono); font-size: .8rem;
+  border: 1px solid var(--rule-mid); background: transparent; color: var(--ink-70);
+  cursor: pointer; transition: all .2s;
+}
+.ftable__morebtn:hover { border-color: var(--ink); background: var(--ink); color: var(--paper); }
 .lv-low { color: #5c7028; } .lv-mid { color: #a06a10; } .lv-high { color: var(--accent); font-weight: 700; }
 
 .ftable__add {
@@ -415,9 +423,23 @@ body.has-deck { padding-bottom: 96px; } /* 하단 고정 계산대 자리 확보
 .din__cross { margin-top: 1.6rem; font-size: .9rem; color: var(--ink-70); }
 .din__cross a { color: var(--spruce); border-bottom: 1px solid var(--spruce); }
 @media (max-width: 640px) {
-  .din__gauge { min-width: 0; }
-  .din__gauge em { display: none; }
-  .din__bar { width: 56px; }
+  /* 폰에서는 표 대신 카드형 — 메뉴명 → 팁 → 수치+게이지 순으로 전체 폭 사용 */
+  .ftable--din thead { display: none; }
+  .ftable--din, .ftable--din tbody { display: block; }
+  .ftable--din tr {
+    display: grid; grid-template-columns: auto 1fr; align-items: center;
+    gap: .15rem 1rem; padding: 1rem 0;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .ftable--din tr:hover td { background: none; }
+  .ftable--din td { display: block; border: none; padding: 0; text-align: left; white-space: normal; }
+  .ftable--din td.ftable__food { grid-column: 1 / -1; }
+  .ftable--din .din__tip { margin-top: .35rem; }
+  .ftable--din td.din__na { grid-column: 1; }
+  .ftable--din td.din__gauge { grid-column: 2; min-width: 0; }
+  .ftable--din .din__bar { display: block; width: 100%; }
+  .ftable--din .din__gauge em { display: block; margin: .3rem 0 0; }
+  .ftable--din .din__gauge em::after { content: ' · WHO 하루 상한 대비'; color: var(--ink-35); }
 }
 
 /* 계산대 — 하단 고정 바 */
@@ -722,8 +744,19 @@ body.has-deck { padding-bottom: 96px; } /* 하단 고정 계산대 자리 확보
   .ftable td { font-size: .8rem; padding: .6rem .3rem; }
   .ftable td.ftable__food { font-size: .84rem; }
   .ftable__cat { display: block; margin-left: 0; }
-  .ftable__add { padding: .25rem .55rem; font-size: .72rem; }
   .scanner__searchbox input[type="search"] { font-size: 1rem; padding: .8rem .9rem; }
+  /* 터치 타깃 확대 — 오터치 방지 */
+  .ftable__add { padding: .5rem .6rem; font-size: .74rem; }
+  .ftable__fav { font-size: 1.15rem; padding: .35rem .4rem; }
+  .ftable__qty button { width: 30px; height: 30px; }
+  .tray__grams button { width: 32px; height: 32px; }
+  /* 카테고리 칩 — 세로 4줄 대신 한 줄 가로 스와이프 */
+  .scanner .chips {
+    flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; padding: .1rem .1rem .25rem;
+  }
+  .scanner .chips::-webkit-scrollbar { display: none; }
+  .scanner .chips .chip { flex: 0 0 auto; }
 }
 @media (max-width: 720px) {
   .mast__issue { display: none; }

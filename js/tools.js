@@ -13,7 +13,8 @@
   }
   mergeExt();
 
-  var MAX_ROWS = 200; // DB 확장 대비 — 넘치면 검색어를 좁히도록 안내
+  var PAGE_STEP = 50; // 한 번에 보여줄 행 수 — 「더 보기」로 증분 표시
+  var shown = PAGE_STEP;
 
   var searchEl = document.getElementById('foodSearch');
   var chipsEl = document.getElementById('catChips');
@@ -78,7 +79,7 @@
       recents = []; saveRecents(); renderRecents(); return;
     }
     var chip = e.target.closest('.recent__chip');
-    if (chip) { searchEl.value = chip.dataset.q; renderRows(); }
+    if (chip) { searchEl.value = chip.dataset.q; resetPaging(); renderRows(); }
   });
   var recentTimer = null;
   function noteSearch() {
@@ -143,6 +144,7 @@
       chipsEl.querySelectorAll('.chip').forEach(function (x) { x.classList.remove('on'); });
       b.classList.add('on');
       if (state.noPhos) phosChip.classList.add('on'); // 별도 토글은 유지
+      resetPaging();
       renderRows();
     });
     chipsEl.appendChild(b);
@@ -154,6 +156,7 @@
   phosChip.addEventListener('click', function () {
     state.noPhos = !state.noPhos;
     phosChip.classList.toggle('on', state.noPhos);
+    resetPaging();
     renderRows();
   });
   chipsEl.appendChild(phosChip);
@@ -164,6 +167,7 @@
   favChip.addEventListener('click', function () {
     state.favOnly = !state.favOnly;
     favChip.classList.toggle('on', state.favOnly);
+    resetPaging();
     renderRows();
   });
   chipsEl.appendChild(favChip);
@@ -225,7 +229,7 @@
       });
     }
     var total = list.length;
-    if (total > MAX_ROWS) list = list.slice(0, MAX_ROWS);
+    if (total > shown) list = list.slice(0, shown);
 
     var html = list.map(function (f, i) {
       var item = trayItem(f.name);
@@ -254,11 +258,17 @@
     rowsEl._list = list; // 담기·즐겨찾기 버튼 위임용 현재 목록
     syncFavChip();
 
-    moreEl.hidden = total <= MAX_ROWS;
-    if (total > MAX_ROWS) {
-      moreEl.textContent = '전체 ' + fmt(total) + '개 중 ' + MAX_ROWS + '개 표시 — 검색어나 필터로 좁혀보세요.';
+    moreEl.hidden = total <= list.length;
+    if (total > list.length) {
+      moreEl.innerHTML = '전체 ' + fmt(total) + '개 중 ' + fmt(list.length) + '개 표시 — ' +
+        '<button type="button" class="ftable__morebtn" id="ftableMoreBtn">' + PAGE_STEP + '개 더 보기</button>' +
+        ' 또는 검색어·필터로 좁혀보세요.';
     }
   }
+  moreEl.addEventListener('click', function (e) {
+    if (e.target.id === 'ftableMoreBtn') { shown += PAGE_STEP; renderRows(); }
+  });
+  function resetPaging() { shown = PAGE_STEP; }
 
   rowsEl.addEventListener('click', function (e) {
     var favBtn = e.target.closest('.ftable__fav');
@@ -396,7 +406,9 @@
   }
 
   /* ---------- 이벤트 ---------- */
-  searchEl.addEventListener('input', function () { renderRows(); noteSearch(); });
+  searchEl.addEventListener('input', function () { resetPaging(); renderRows(); noteSearch(); });
+  // 좁은 화면에서는 placeholder가 잘리지 않게 짧은 문구로
+  if (window.innerWidth <= 480) searchEl.placeholder = '식품 검색 — 예: 김치, 라면';
   ROWS.forEach(function (r) {
     r.el.addEventListener('input', function () { renderTray(); saveTargets(); });
   });
