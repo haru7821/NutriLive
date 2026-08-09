@@ -7,13 +7,16 @@
   --paper: #f6f1e7;
   --ink: #1b201c;
   --ink-70: rgba(27, 32, 28, .82);
-  --ink-50: rgba(27, 32, 28, .66);
-  --ink-35: rgba(27, 32, 28, .55);
+  --ink-50: rgba(27, 32, 28, .72);
+  --ink-35: rgba(27, 32, 28, .63); /* 작은 글씨 AA 대비(4.5:1↑) 확보 */
   --rule: rgba(27, 32, 28, .8);
   --rule-mid: rgba(27, 32, 28, .25);
   --rule-soft: rgba(27, 32, 28, .12);
-  --accent: #c8502e;
+  --accent: #b8441f; /* 주홍 — 아이보리 위 AA 대비 확보 톤 */
   --spruce: #31513f;
+  /* 데이터 신호등 — 밝은 지면용 (어두운 계산대 바는 별도 밝은 톤 사용) */
+  --ok: #55671f;
+  --warn: #8f5e0e;
   --serif: 'Gowun Batang', serif;
   --sans: 'Noto Sans KR', sans-serif;
   --mono: 'IBM Plex Mono', monospace;
@@ -364,7 +367,7 @@ body.has-deck { padding-bottom: 96px; } /* 하단 고정 계산대 자리 확보
   cursor: pointer; transition: all .2s;
 }
 .ftable__morebtn:hover { border-color: var(--ink); background: var(--ink); color: var(--paper); }
-.lv-low { color: #5c7028; } .lv-mid { color: #a06a10; } .lv-high { color: var(--accent); font-weight: 700; }
+.lv-low { color: var(--ok); } .lv-mid { color: var(--warn); } .lv-high { color: var(--accent); font-weight: 700; }
 
 .ftable__add {
   padding: .3rem .9rem; font-family: var(--mono); font-size: .8rem;
@@ -396,24 +399,24 @@ body.has-deck { padding-bottom: 96px; } /* 하단 고정 계산대 자리 확보
   font-size: 1.02rem; line-height: 1; color: var(--ink-35); padding: .15rem .3rem;
   transition: color .15s, transform .15s;
 }
-.ftable__fav:hover { color: #c9a227; transform: scale(1.15); }
-.ftable__fav.on { color: #c9a227; }
-.chip--fav { border-color: #c9a227; color: #8a6d1c; }
-.chip--fav.on { background: #c9a227; border-color: #c9a227; color: #fff; }
+.ftable__fav:hover { color: #a8861c; transform: scale(1.15); }
+.ftable__fav.on { color: #a8861c; }
+.chip--fav { border-color: #a8861c; color: #8a6d1c; }
+.chip--fav.on { background: #a8861c; border-color: #a8861c; color: #fff; }
 
 /* 외식 추정표 */
 .din__tip { display: block; font-family: var(--sans); font-weight: 400; font-size: .8rem; color: var(--ink-50); margin-top: .15rem; white-space: normal; }
 .din__na { font-size: 1.02rem !important; font-weight: 500; }
 .din__na--hi { color: var(--accent); font-weight: 700; }
-.din__na--mid { color: #a06a10; }
-.din__na--lo { color: #5c7028; }
+.din__na--mid { color: var(--warn); }
+.din__na--lo { color: var(--ok); }
 .din__gaugehead { font-size: .68rem !important; }
 .din__gauge { min-width: 150px; }
 .din__bar { display: inline-block; vertical-align: middle; width: 96px; height: 6px; background: var(--rule-soft); overflow: hidden; }
 .din__bar i { display: block; height: 100%; }
 .din__bar--hi { background: var(--accent); }
-.din__bar--mid { background: #a06a10; }
-.din__bar--lo { background: #5c7028; }
+.din__bar--mid { background: var(--warn); }
+.din__bar--lo { background: var(--ok); }
 .din__gauge em { font-style: normal; font-size: .76rem; color: var(--ink-50); margin-left: .5rem; }
 .din__rules { max-width: 640px; margin-top: 2.4rem; border: 1px solid var(--ink); padding: 1.5rem 1.8rem; }
 .din__rules h3 { font-family: var(--serif); font-size: 1.1rem; font-weight: 700; margin-bottom: .8rem; }
@@ -522,7 +525,7 @@ body.has-deck { padding-bottom: 96px; } /* 하단 고정 계산대 자리 확보
 .sum small { font-family: var(--mono); font-size: .74rem; color: var(--ink-35); }
 .sum__bar { height: 4px; background: var(--rule-soft); overflow: hidden; }
 .sum__bar i { display: block; height: 100%; background: var(--spruce); transition: width .3s; }
-.sum__bar i.near { background: #a06a10; }
+.sum__bar i.near { background: var(--warn); }
 .sum__bar i.over { background: var(--accent); }
 .overtxt { color: var(--accent) !important; font-weight: 700; }
 .deck__clear {
