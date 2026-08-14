@@ -418,6 +418,10 @@
     renderRows();
   });
 
+  // /food/ 상세 카드에서 넘어온 검색어 프리필 (tools.html?q=식품명)
+  var q0 = new URLSearchParams(location.search).get('q');
+  if (q0) searchEl.value = q0;
+
   restore();
   renderRecents();
   renderRows();

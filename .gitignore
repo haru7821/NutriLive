@@ -1,0 +1,4 @@
+# 배포 시 scripts/build-food-pages.mjs가 생성 — 저장소에는 커밋하지 않는다
+/food/
+/sitemap-foods.xml
+node_modules/
