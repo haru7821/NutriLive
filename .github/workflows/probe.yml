@@ -24,3 +24,4 @@ jobs:
           done
           echo "--- sitemap-foods.xml head ---"
           curl -s "https://nutrilive.kr/sitemap-foods.xml" | head -c 300 || true
+# probe v2
