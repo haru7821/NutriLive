@@ -748,6 +748,10 @@ body.has-deck { padding-bottom: 96px; } /* 하단 고정 계산대 자리 확보
 }
 .dish__shop a { color: var(--spruce); border-bottom: 1px solid var(--spruce); }
 
+.dish__card { margin-top: .5rem; font-size: .82rem; }
+.dish__card a { color: var(--accent); border-bottom: 1px solid var(--accent); }
+.dish__card span { display: block; color: var(--ink-35); font-size: .76rem; margin-top: .1rem; }
+
 /* ---------- 리빌 ---------- */
 .reveal { opacity: 0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease; }
 .reveal.on { opacity: 1; transform: none; }

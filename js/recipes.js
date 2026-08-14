@@ -107,6 +107,12 @@
     naChips.appendChild(b);
   });
 
+  /* ── 레시피 카드 이미지 슬러그 — scripts/gen-recipe-cards.mjs와 동일 규칙 ── */
+  function cardSlug(name) {
+    return name.replace(/[()[\]「」%↓]/g, '').trim()
+      .replace(/[\s_/·,+&~※]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+  }
+
   /* ── 어필리에이트 링크 ↔ 레시피 재료 매칭 ── */
   var AFF = (window.NUTRI_CONFIG || {}).AFFILIATE_LINKS || [];
   function linksFor(r) {
@@ -160,6 +166,7 @@
               '<h4>만드는 법</h4>' +
               '<ol>' + r.steps.map(function (s) { return '<li>' + s + '</li>'; }).join('') + '</ol>' +
               (r.naNote ? '<div class="dish__point"><b>나트륨 계산 — </b>' + r.naNote + '</div>' : '') +
+              '<p class="dish__card"><a href="assets/cards/' + cardSlug(r.name) + '.png" target="_blank" rel="noopener">카드 이미지 보기 ↗</a><span>공유·저장용 — 요리명·나트륨 요약 이미지</span></p>' +
             '</div>';
         }
         d.innerHTML =
