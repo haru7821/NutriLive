@@ -722,14 +722,18 @@ body.has-deck { padding-bottom: 96px; } /* 하단 고정 계산대 자리 확보
 .subcta__line { font-size: .92rem; color: var(--ink-70); max-width: 34em; margin: 0 auto 1.3rem; word-break: keep-all; }
 
 /* ---------- 장보기 메모 (어필리에이트 · 광고 표기 필수) ---------- */
-.shopbox { margin-top: 2.5rem; border: 1px dashed var(--rule-mid); padding: 1.4rem 1.6rem 1.5rem; }
+.shopbox { margin-top: 2.5rem; border: 1px dashed var(--rule-mid); padding: 1.4rem 1.6rem 1.5rem; text-align: left; }
 .shopbox h3 { font-family: var(--serif); font-size: 1.05rem; font-weight: 700; margin-bottom: .8rem; }
 .shopbox h3 em {
   font-family: var(--mono); font-style: normal; font-size: .66rem; letter-spacing: .12em;
   color: var(--paper); background: var(--ink-50); padding: .15rem .5rem;
   vertical-align: middle; margin-left: .5rem;
 }
-.shopbox ul { list-style: none; display: flex; flex-wrap: wrap; gap: .5rem 1.8rem; }
+.shopbox ul {
+  list-style: none; display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 1rem 2rem; align-items: start;
+}
 .shopbox li a { color: var(--spruce); border-bottom: 1px solid var(--spruce); font-size: .92rem; }
 .shopbox li span { display: block; font-size: .78rem; color: var(--ink-35); }
 .shopbox__disclose { margin-top: 1rem; font-size: .76rem; color: var(--ink-35); line-height: 1.7; }
