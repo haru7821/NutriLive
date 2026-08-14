@@ -2,6 +2,21 @@
 (function () {
   var CFG = window.NUTRI_CONFIG || {};
 
+  // 이벤트 집계 — GoatCounter 이벤트 (쿠키 없음, 로드 전이면 조용히 무시)
+  function track(name) {
+    try {
+      if (window.goatcounter && window.goatcounter.count) {
+        window.goatcounter.count({ path: name, event: true });
+      }
+    } catch (e) {}
+  }
+  window.NUTRI_TRACK = track;
+  // data-track 속성이 붙은 요소 클릭을 자동 집계
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest && e.target.closest('[data-track]');
+    if (el) track(el.getAttribute('data-track'));
+  });
+
   // 모바일 내비게이션
   var toggle = document.getElementById('navToggle');
   var links = document.getElementById('navLinks');
@@ -60,6 +75,7 @@
         if (btn) { btn.disabled = false; btn.textContent = btnLabel; }
         form.style.display = 'none';
         done.classList.add('show');
+        track(isPrereg ? 'market-prereg' : 'newsletter-signup'); // 전환 집계
       }
 
       // 주간 레터 구독은 MailerLite에 직접 등록 (실패 시 기존 경로로 폴백)

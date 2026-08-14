@@ -15,5 +15,12 @@ window.NUTRI_CONFIG = {
 
   // ② 방문 분석 — GoatCounter(무료, 쿠키 없음) 가입 후 사이트 코드 입력.
   //    예: 코드가 "nutrilive"면 대시보드는 https://nutrilive.goatcounter.com
-  ANALYTICS_CODE: "nutrilive"
+  ANALYTICS_CODE: "nutrilive",
+
+  // ③ 어필리에이트(쿠팡파트너스) — 파트너스에서 발급한 상품 링크를 아래에 넣으면
+  //    레시피북 하단에 「장보기 메모」 박스가 나타납니다. 비워두면 박스 자체가 숨겨집니다.
+  //    ⚠️ label/note에는 성분·규격·용도만 — 효능 표현(COMPLIANCE.md) 금지.
+  //    예: { label: "들깻가루 300g", note: "무첨가 제품인지 원재료명 확인", url: "https://link.coupang.com/a/XXXX" },
+  AFFILIATE_LINKS: [
+  ]
 };

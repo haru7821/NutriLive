@@ -713,6 +713,27 @@ body.has-deck { padding-bottom: 96px; } /* 하단 고정 계산대 자리 확보
 .note h3 a:hover { color: var(--spruce); }
 .note cite a { color: var(--spruce); border-bottom: 1px solid var(--spruce); }
 
+/* ---------- 콘텐츠 하단 구독 CTA ---------- */
+.subcta {
+  margin: 3.5rem var(--mx) 0; padding: 2rem 1.6rem 2.2rem;
+  border: 1px solid var(--ink); text-align: center;
+}
+.subcta__label { font-family: var(--mono); font-size: .72rem; letter-spacing: .3em; color: var(--accent); margin-bottom: .6rem; }
+.subcta__line { font-size: .92rem; color: var(--ink-70); max-width: 34em; margin: 0 auto 1.3rem; word-break: keep-all; }
+
+/* ---------- 장보기 메모 (어필리에이트 · 광고 표기 필수) ---------- */
+.shopbox { margin-top: 2.5rem; border: 1px dashed var(--rule-mid); padding: 1.4rem 1.6rem 1.5rem; }
+.shopbox h3 { font-family: var(--serif); font-size: 1.05rem; font-weight: 700; margin-bottom: .8rem; }
+.shopbox h3 em {
+  font-family: var(--mono); font-style: normal; font-size: .66rem; letter-spacing: .12em;
+  color: var(--paper); background: var(--ink-50); padding: .15rem .5rem;
+  vertical-align: middle; margin-left: .5rem;
+}
+.shopbox ul { list-style: none; display: flex; flex-wrap: wrap; gap: .5rem 1.8rem; }
+.shopbox li a { color: var(--spruce); border-bottom: 1px solid var(--spruce); font-size: .92rem; }
+.shopbox li span { display: block; font-size: .78rem; color: var(--ink-35); }
+.shopbox__disclose { margin-top: 1rem; font-size: .76rem; color: var(--ink-35); line-height: 1.7; }
+
 /* ---------- 리빌 ---------- */
 .reveal { opacity: 0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease; }
 .reveal.on { opacity: 1; transform: none; }

@@ -167,6 +167,23 @@
     }
   }
 
+  /* ── 장보기 메모 (어필리에이트) — config.js의 AFFILIATE_LINKS가 비어 있으면 숨김 ── */
+  (function () {
+    var CFG = window.NUTRI_CONFIG || {};
+    var box = document.getElementById('shopBox');
+    var links = CFG.AFFILIATE_LINKS || [];
+    if (!box || !links.length) return;
+    box.hidden = false;
+    box.className = 'shopbox';
+    box.innerHTML =
+      '<h3>장보기 메모 <em>광고 포함</em></h3>' +
+      '<ul>' + links.map(function (l) {
+        return '<li><a href="' + l.url + '" target="_blank" rel="noopener sponsored" data-track="affiliate-click">' +
+          l.label + ' ↗</a>' + (l.note ? '<span>' + l.note + '</span>' : '') + '</li>';
+      }).join('') + '</ul>' +
+      '<p class="shopbox__disclose">이 링크는 쿠팡 파트너스 활동의 일환으로, 구매 시 일정액의 수수료를 제공받을 수 있습니다. 제품 선정 기준은 영양성분 표기이며, 실제 성분은 구매 페이지의 원재료명·영양정보를 확인하세요.</p>';
+  })();
+
   /* ── 검색엔진용 구조화 데이터(JSON-LD) — 공개된 레시피 전체, 데이터와 자동 동기화 ── */
   (function () {
     var pub = NUTRI_RECIPES.filter(function (r) { return (r.mon || FIRST_MON) <= CUR; });
