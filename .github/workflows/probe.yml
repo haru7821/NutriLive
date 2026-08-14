@@ -1,0 +1,23 @@
+name: Probe site (diagnostic)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check served URLs
+        run: |
+          for u in \
+            "https://nutrilive.kr/" \
+            "https://nutrilive.kr/food/" \
+            "https://nutrilive.kr/food/index.html" \
+            "https://nutrilive.kr/sitemap-foods.xml" \
+            "https://nutrilive.kr/food/%EB%91%90%EB%B6%80.html" \
+            "https://nutrilive.kr/food/c-%EB%8B%A8%EB%B0%B1%EC%A7%88.html" ; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" "$u")
+            echo "$code  $u"
+          done
+          echo "--- sitemap-foods.xml head ---"
+          curl -s "https://nutrilive.kr/sitemap-foods.xml" | head -c 300 || true
