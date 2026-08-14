@@ -22,5 +22,9 @@ window.NUTRI_CONFIG = {
   //    ⚠️ label/note에는 성분·규격·용도만 — 효능 표현(COMPLIANCE.md) 금지.
   //    예: { label: "들깻가루 300g", note: "무첨가 제품인지 원재료명 확인", url: "https://link.coupang.com/a/XXXX" },
   AFFILIATE_LINKS: [
+    { label: "들깻가루", note: "무첨가·국산 여부는 원재료명 확인", url: "https://coupa.ng/coLtxQ" },
+    { label: "무염버터", note: "「무염(unsalted)」 표기 확인", url: "https://coupa.ng/coLtKw" },
+    { label: "무첨가 땅콩버터", note: "원재료가 땅콩 100%인지 확인", url: "https://coupa.ng/coLtVS" },
+    { label: "계량스푼 세트", note: "간장 1작은술(5ml) 계량 — 저염 조리의 기본 도구", url: "https://coupa.ng/coLt25" }
   ]
 };

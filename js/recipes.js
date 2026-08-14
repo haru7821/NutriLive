@@ -181,7 +181,7 @@
         return '<li><a href="' + l.url + '" target="_blank" rel="noopener sponsored" data-track="affiliate-click">' +
           l.label + ' ↗</a>' + (l.note ? '<span>' + l.note + '</span>' : '') + '</li>';
       }).join('') + '</ul>' +
-      '<p class="shopbox__disclose">이 링크는 쿠팡 파트너스 활동의 일환으로, 구매 시 일정액의 수수료를 제공받을 수 있습니다. 제품 선정 기준은 영양성분 표기이며, 실제 성분은 구매 페이지의 원재료명·영양정보를 확인하세요.</p>';
+      '<p class="shopbox__disclose">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다. 제품 선정 기준은 영양성분 표기이며, 실제 성분은 구매 페이지의 원재료명·영양정보를 확인하세요.</p>';
   })();
 
   /* ── 검색엔진용 구조화 데이터(JSON-LD) — 공개된 레시피 전체, 데이터와 자동 동기화 ── */
