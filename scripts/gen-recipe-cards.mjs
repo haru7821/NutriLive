@@ -19,15 +19,6 @@ const ORN_SMALL = {
   '간식': `<path d="M14 16 h18 v8 a9 9 0 0 1 -18 0 z"/><path d="M32 17 a5 4 0 0 1 0 8" stroke-width="1.4"/><path d="M12 36 h22" stroke-width="1.4"/><path d="M20 10 q2 -3 0 -6 M26 10 q2 -3 0 -6" opacity=".55"/>`
 };
 
-// 카드 중앙을 채우는 대형 삽화 — 실사 없이 「일부러 고른 스타일」로 읽히게 하는 핵심 장치.
-// 워터마크가 아니라 진짜 콘텐츠 블록으로 배치해 빈 공간을 만들지 않는다.
-const ORN_BIG = {
-  '밥·면': `<path d="M60 190 h280 a140 90 0 0 1 -280 0 z"/><path d="M90 190 a110 65 0 0 1 220 0" stroke-width="2.6"/><path d="M170 290 h60" stroke-width="2.6"/><path d="M170 110 q16 -24 0 -48 M230 110 q16 -24 0 -48" opacity=".5"/>`,
-  '국물': `<path d="M40 160 h320 a160 110 0 0 1 -320 0 z"/><path d="M140 290 h120" stroke-width="2.6"/><path d="M360 120 l55 -70" stroke-width="3.6"/><ellipse cx="353" cy="137" rx="30" ry="21"/><path d="M140 95 q16 -24 0 -48 M210 95 q16 -24 0 -48" opacity=".5"/>`,
-  '반찬': `<ellipse cx="100" cy="258" rx="66" ry="21"/><ellipse cx="100" cy="252" rx="44" ry="12" opacity=".5"/><ellipse cx="235" cy="232" rx="82" ry="26"/><ellipse cx="235" cy="225" rx="56" ry="15" opacity=".5"/><ellipse cx="365" cy="258" rx="60" ry="19"/><ellipse cx="365" cy="253" rx="40" ry="11" opacity=".5"/><path d="M320 330 l100 -40 M328 338 l100 -40" stroke-width="2.2"/>`,
-  '간식': `<path d="M130 140 h150 v70 a75 68 0 0 1 -150 0 z"/><path d="M280 155 a42 34 0 0 1 0 68" stroke-width="2.6"/><path d="M115 310 h185" stroke-width="2.6"/><path d="M190 108 q16 -24 0 -48 M235 108 q16 -24 0 -48" opacity=".5"/>`
-};
-
 const COURSE_SUB = { '밥·면': 'GRAINS & NOODLES', '국물': 'SOUP', '반찬': 'BANCHAN', '간식': 'PETIT PLAISIR' };
 
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -43,8 +34,11 @@ export function slugify(name) {
 export function cardHTML(r, issue) {
   const lv = naLevel(r.na);
   const whoPct = Math.min(100, Math.round(r.na / 2000 * 100));
-  const ingChips = r.ingredients.slice(0, 5).map(i => `<span class="ing">${esc(i[0])}<b>${esc(i[1])}</b></span>`).join('');
-  const more = r.ingredients.length > 5 ? `<span class="ing ing--more">외 ${r.ingredients.length - 5}종</span>` : '';
+  const ingChips = r.ingredients.slice(0, 6).map(i => `<span class="ing">${esc(i[0])}<b>${esc(i[1])}</b></span>`).join('');
+  const more = r.ingredients.length > 6 ? `<span class="ing ing--more">외 ${r.ingredients.length - 6}종</span>` : '';
+  const stepItems = (r.steps || []).map((s, i) =>
+    `<li class="steps__item"><span class="steps__num">${i + 1}</span><span class="steps__text">${esc(s)}</span></li>`
+  ).join('');
 
   return `<!DOCTYPE html>
 <html lang="ko"><head><meta charset="UTF-8">
@@ -73,33 +67,42 @@ export function cardHTML(r, issue) {
   .catlabel{font-family:var(--mono);font-size:15px;letter-spacing:.2em;color:var(--accent);}
   .catlabel small{display:block;font-size:11px;letter-spacing:.14em;color:var(--ink-35);margin-top:3px;}
 
-  .dish{font-family:var(--serif);font-weight:700;font-size:58px;line-height:1.22;margin-top:16px;word-break:keep-all;max-width:760px;}
+  .dish{font-family:var(--serif);font-weight:700;font-size:52px;line-height:1.2;margin-top:14px;word-break:keep-all;max-width:800px;}
 
-  .illust{flex:1;display:flex;align-items:center;justify-content:center;min-height:0;margin-top:20px;}
-  .illust svg{width:auto;height:100%;max-height:300px;color:var(--spruce);opacity:.2;}
-
-  .stat{display:flex;align-items:flex-end;gap:30px;margin-top:30px;padding:26px 30px;border:1px solid var(--ink);background:var(--paper);position:relative;}
+  .stat{display:flex;align-items:flex-end;gap:26px;margin-top:24px;padding:20px 26px;border:1px solid var(--ink);background:var(--paper);position:relative;}
   .stat__num{font-family:var(--mono);}
   .stat__num small{display:block;font-size:14px;letter-spacing:.16em;color:var(--ink-50);margin-bottom:6px;}
-  .stat__num b{font-size:82px;font-weight:500;line-height:1;}
+  .stat__num b{font-size:68px;font-weight:500;line-height:1;}
   .stat__num b.lo{color:var(--ok);} .stat__num b.mid{color:var(--warn);} .stat__num b.hi{color:var(--accent);}
-  .stat__num i{font-style:normal;font-size:27px;margin-left:5px;color:var(--ink-50);}
-  .stat__meta{font-family:var(--mono);font-size:16px;color:var(--ink-70);line-height:1.9;padding-bottom:4px;}
-  .stat__bar{position:absolute;left:30px;right:30px;bottom:16px;height:5px;background:var(--rule-soft);}
+  .stat__num i{font-style:normal;font-size:23px;margin-left:5px;color:var(--ink-50);}
+  .stat__meta{font-family:var(--mono);font-size:15px;color:var(--ink-70);line-height:1.8;padding-bottom:3px;}
+  .stat__bar{position:absolute;left:26px;right:26px;bottom:12px;height:4px;background:var(--rule-soft);}
   .stat__bar i{display:block;height:100%;}
   .stat__bar i.lo{background:var(--ok);} .stat__bar i.mid{background:var(--warn);} .stat__bar i.hi{background:var(--accent);}
-  .stat__pct{position:absolute;right:30px;top:26px;font-family:var(--mono);font-size:13px;color:var(--ink-35);}
+  .stat__pct{position:absolute;right:26px;top:20px;font-family:var(--mono);font-size:12px;color:var(--ink-35);}
 
-  .ings{display:flex;flex-wrap:wrap;gap:9px 12px;max-width:760px;}
-  .ing{font-family:var(--mono);font-size:15px;color:var(--ink-70);background:rgba(246,241,231,.92);border:1px solid var(--rule-soft);padding:8px 14px;white-space:nowrap;}
-  .ing b{font-weight:500;color:var(--spruce);margin-left:7px;}
+  .ings{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px 10px;max-width:800px;}
+  .ing{font-family:var(--mono);font-size:14px;color:var(--ink-70);background:rgba(246,241,231,.92);border:1px solid var(--rule-soft);padding:7px 12px;white-space:nowrap;}
+  .ing b{font-weight:500;color:var(--spruce);margin-left:6px;}
   .ing--more{color:var(--ink-35);background:none;border-style:dashed;}
 
-  .tip{margin-top:22px;padding-top:22px;border-top:1px dashed var(--rule-mid);}
-  .tip__label{font-family:var(--mono);font-size:13px;letter-spacing:.16em;color:var(--accent);margin-bottom:8px;}
-  .tip__text{font-family:var(--sans);font-size:20px;line-height:1.6;color:var(--ink-70);max-width:800px;word-break:keep-all;}
+  /* 사진 대신 — 실제 조리 단계를 카드 안에 전문으로 담는다 (표지가 아니라 완결된 레시피) */
+  .steps{flex:1;min-height:0;margin-top:22px;display:flex;flex-direction:column;}
+  .steps__label{font-family:var(--mono);font-size:13px;letter-spacing:.16em;color:var(--accent);margin-bottom:12px;}
+  .steps__list{list-style:none;}
+  .steps__item{display:flex;gap:14px;margin-bottom:11px;align-items:flex-start;}
+  .steps__num{
+    flex:none;width:28px;height:28px;border:1px solid var(--spruce);color:var(--spruce);
+    font-family:var(--mono);font-size:14px;font-weight:500;
+    display:flex;align-items:center;justify-content:center;margin-top:1px;
+  }
+  .steps__text{font-family:var(--sans);font-size:21px;line-height:1.5;color:var(--ink-70);word-break:keep-all;max-width:820px;padding-top:1px;}
 
-  .foot{display:flex;justify-content:space-between;align-items:baseline;margin-top:22px;padding-top:16px;border-top:1px solid var(--ink);}
+  .tip{margin-top:18px;padding-top:18px;border-top:1px dashed var(--rule-mid);}
+  .tip__label{font-family:var(--mono);font-size:13px;letter-spacing:.16em;color:var(--accent);margin-bottom:7px;}
+  .tip__text{font-family:var(--sans);font-size:19px;line-height:1.55;color:var(--ink-70);max-width:800px;word-break:keep-all;}
+
+  .foot{display:flex;justify-content:space-between;align-items:baseline;margin-top:18px;padding-top:14px;border-top:1px solid var(--ink);}
   .foot__site{font-family:var(--mono);font-size:14px;color:var(--ink-50);}
   .foot__disc{font-family:var(--sans);font-size:12px;color:var(--ink-35);max-width:480px;text-align:right;line-height:1.6;}
 </style></head>
@@ -117,8 +120,11 @@ export function cardHTML(r, issue) {
       <div class="stat__pct">나트륨 ${lv.label}</div>
       <div class="stat__bar"><i class="${lv.cls}" style="width:${whoPct}%"></i></div>
     </div>
-    <div class="illust"><svg viewBox="0 0 460 380" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ORN_BIG[r.cat] || ''}</svg></div>
     <div class="ings">${ingChips}${more}</div>
+    <div class="steps">
+      <div class="steps__label">만드는 법</div>
+      <ol class="steps__list">${stepItems}</ol>
+    </div>
     <div class="tip"><div class="tip__label">셰프의 메모</div><div class="tip__text">${esc(r.tip)}</div></div>
     <div class="foot">
       <div class="foot__site">nutrilive.kr — 싱겁게, 그러나 맛있게</div>
