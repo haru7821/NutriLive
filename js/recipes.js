@@ -107,6 +107,17 @@
     naChips.appendChild(b);
   });
 
+  /* ── 어필리에이트 링크 ↔ 레시피 재료 매칭 ── */
+  var AFF = (window.NUTRI_CONFIG || {}).AFFILIATE_LINKS || [];
+  function linksFor(r) {
+    if (!r.ingredients) return [];
+    return AFF.filter(function (l) {
+      return (l.match || []).some(function (kw) {
+        return r.ingredients.some(function (ing) { return ing[0].indexOf(kw) !== -1; });
+      });
+    });
+  }
+
   function render() {
     grid.innerHTML = '';
     if (carteDate) carteDate.textContent = volLabel(activeMon);
@@ -139,6 +150,13 @@
               '<div class="dish__ing">' + r.ingredients.map(function (i) {
                 return '<span>' + i[0] + '<b>' + i[1] + '</b></span>';
               }).join('') + '</div>' +
+              (function () { // 이 요리 재료와 매칭되는 장보기 링크 (광고 표기)
+                var shop = linksFor(r);
+                if (!shop.length) return '';
+                return '<p class="dish__shop"><em>광고</em>장보기 — ' + shop.map(function (l) {
+                  return '<a href="' + l.url + '" target="_blank" rel="noopener sponsored" data-track="aff-' + r.name.replace(/\s+/g, '') + '">' + l.label + ' ↗</a>';
+                }).join(' · ') + '</p>';
+              })() +
               '<h4>만드는 법</h4>' +
               '<ol>' + r.steps.map(function (s) { return '<li>' + s + '</li>'; }).join('') + '</ol>' +
               (r.naNote ? '<div class="dish__point"><b>나트륨 계산 — </b>' + r.naNote + '</div>' : '') +
@@ -175,11 +193,19 @@
     if (!box || !links.length) return;
     box.hidden = false;
     box.className = 'shopbox';
+    var pub = NUTRI_RECIPES.filter(function (r) { return (r.mon || FIRST_MON) <= CUR; });
     box.innerHTML =
       '<h3>장보기 메모 <em>광고 포함</em></h3>' +
       '<ul>' + links.map(function (l) {
+        var usedIn = (l.match && l.match.length)
+          ? pub.filter(function (r) { return linksFor(r).indexOf(l) !== -1; }).map(function (r) { return r.name; })
+          : [];
+        var forLine = (l.match && l.match.length)
+          ? (usedIn.length ? '쓰이는 요리 — ' + usedIn.slice(0, 3).join(' · ') + (usedIn.length > 3 ? ' 외' : '') : '')
+          : '모든 요리 공통 도구';
         return '<li><a href="' + l.url + '" target="_blank" rel="noopener sponsored" data-track="affiliate-click">' +
-          l.label + ' ↗</a>' + (l.note ? '<span>' + l.note + '</span>' : '') + '</li>';
+          l.label + ' ↗</a>' + (l.note ? '<span>' + l.note + '</span>' : '') +
+          (forLine ? '<span class="shopbox__for">' + forLine + '</span>' : '') + '</li>';
       }).join('') + '</ul>' +
       '<p class="shopbox__disclose">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다. 제품 선정 기준은 영양성분 표기이며, 실제 성분은 구매 페이지의 원재료명·영양정보를 확인하세요.</p>';
   })();

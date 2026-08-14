@@ -733,6 +733,16 @@ body.has-deck { padding-bottom: 96px; } /* 하단 고정 계산대 자리 확보
 .shopbox li a { color: var(--spruce); border-bottom: 1px solid var(--spruce); font-size: .92rem; }
 .shopbox li span { display: block; font-size: .78rem; color: var(--ink-35); }
 .shopbox__disclose { margin-top: 1rem; font-size: .76rem; color: var(--ink-35); line-height: 1.7; }
+.shopbox__for { display: block; font-size: .76rem; color: var(--spruce); }
+
+/* 레시피 펼침 안 장보기 줄 */
+.dish__shop { margin-top: .7rem; font-size: .86rem; color: var(--ink-70); }
+.dish__shop em {
+  font-family: var(--mono); font-style: normal; font-size: .6rem; letter-spacing: .12em;
+  background: var(--ink-50); color: var(--paper); padding: .12rem .45rem;
+  margin-right: .5rem; vertical-align: middle;
+}
+.dish__shop a { color: var(--spruce); border-bottom: 1px solid var(--spruce); }
 
 /* ---------- 리빌 ---------- */
 .reveal { opacity: 0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease; }
