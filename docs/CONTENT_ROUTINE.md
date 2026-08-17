@@ -23,6 +23,10 @@
 6. **네이버 발행글 초안 생성** (`scripts/gen-naver-posts.mjs` → `naver/drafts/`)
    - 카드 이미지(대표이미지) + 조리 단계 전문을 묶은 발행용 텍스트. `naver/README.md` 절차대로
      GM이 네이버 블로그에 수동 발행 (자동 업로드는 미구현 — 계정 연동 필요, 하단 참고)
+6-1. **인스타그램 캡션 초안 생성** (`scripts/gen-instagram-posts.mjs` → `instagram/drafts/`)
+   - 대표이미지는 카드 이미지(assets/cards/) 그대로 사용, 캡션은 훅 문장+저장 유도+해시태그 중심으로
+     짧게 구성(전체 조리법은 이미지 안에 이미 있음). `instagram/README.md` 절차대로 GM이 수동 게시
+     (자동 업로드는 미구현 — 계정 연동 필요, 하단 참고)
 7. **장보기 메모(어필리에이트) 갱신** — 매주 월요일 10:00 KST 알림(CTO 세션 Routine)이
    이번 주 레시피 재료 기반 상품 목록을 뽑아 GM에게 쿠팡 파트너스 링크 생성을 요청.
    GM이 링크를 주면 `js/config.js`의 AFFILIATE_LINKS 교체 (미응답 시 기존 링크 유지).
@@ -30,9 +34,11 @@
 
 ## SNS 자동 업로드 — 미구현 (계정 연동 필요)
 
-- **인스타그램**: Meta Graph API로 기술적으로는 가능하나, (1) 인스타그램 프로페셔널(비즈니스/크리에이터) 계정
-  전환 (2) Facebook 페이지 연결 (3) Meta for Developers 앱 생성 + 장기 액세스 토큰 발급이 선행돼야 한다 —
-  전부 GM 계정으로 로그인해 완료해야 하는 1회성 수동 설정(쿠팡 Open API 승인과 같은 성격).
+- **인스타그램**: 캡션 생성까지는 자동화됨(`scripts/gen-instagram-posts.mjs` → `instagram/drafts/`).
+  실제 게시는 여전히 GM이 카드 이미지+캡션을 수동으로 업로드 — Meta Graph API로 완전 자동화하려면
+  (1) 인스타그램 프로페셔널(비즈니스/크리에이터) 계정 전환 (2) Facebook 페이지 연결 (3) Meta for
+  Developers 앱 생성 + 장기 액세스 토큰 발급이 선행돼야 한다 — 전부 GM 계정으로 로그인해 완료해야
+  하는 1회성 수동 설정(쿠팡 Open API 승인과 같은 성격).
   토큰이 나오면 GitHub Secrets(`IG_ACCESS_TOKEN` 등)에 등록 → 카드 이미지 자동 게시 워크플로를 붙일 수 있다.
 - **네이버 블로그**: 네이버 오픈API도 앱 등록 + OAuth 로그인이 선행 조건 — 현재는 `naver/drafts/`를
   GM이 수동으로 복사·붙여넣기 발행하는 방식으로 운영한다.
