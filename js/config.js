@@ -24,9 +24,8 @@ window.NUTRI_CONFIG = {
   //    match: 재료명 매칭 키워드 — 이 키워드가 재료에 들어간 레시피에 링크가 연결됩니다.
   //    match가 빈 배열이면 「공통 도구」로 취급 (하단 장보기 메모에만 노출).
   AFFILIATE_LINKS: [
-    { label: "들깻가루", note: "무첨가·국산 여부는 원재료명 확인", match: ["들깻가루", "들깨"], url: "https://coupa.ng/coLtxQ" },
-    { label: "무염버터", note: "「무염(unsalted)」 표기 확인", match: ["무염버터"], url: "https://coupa.ng/coLtKw" },
-    { label: "무첨가 땅콩버터", note: "원재료가 땅콩 100%인지 확인", match: ["땅콩버터"], url: "https://coupa.ng/coLtVS" },
-    { label: "계량스푼 세트", note: "간장 1작은술(5ml) 계량 — 저염 조리의 기본 도구", match: [], url: "https://coupa.ng/coLt25" }
+    { label: "참치캔(저나트륨)", note: "「저나트륨」·「물참치」 표기 확인 — 캔은 헹궈서 사용", match: ["캔참치", "참치"], url: "https://link.coupang.com/a/gh1OOaPgBM" },
+    { label: "건미역", note: "국산 여부는 원산지 표시 확인", match: ["마른미역", "미역"], url: "https://link.coupang.com/a/gh1RqjKVgG" },
+    { label: "무첨가 들깻가루", note: "무첨가·국산 여부는 원재료명 확인", match: ["들깻가루", "들깨"], url: "https://link.coupang.com/a/gh1T0atxLg" }
   ]
 };

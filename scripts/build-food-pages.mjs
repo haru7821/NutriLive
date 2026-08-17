@@ -91,7 +91,7 @@ const footer = `
     © 2026 NutriLive.
   </p>
 </footer>
-<script src="/js/config.js?v=7"></script>
+<script src="/js/config.js?v=9"></script>
 <script src="/js/main.js?v=8"></script>`;
 
 function shell({ title, desc, path, body, ld }) {
