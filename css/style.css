@@ -756,7 +756,7 @@ body.has-deck { padding-bottom: 96px; } /* 하단 고정 계산대 자리 확보
 .reveal { opacity: 0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease; }
 .reveal.on { opacity: 1; transform: none; }
 .d1 { transition-delay: .08s; } .d2 { transition-delay: .16s; }
-.d3 { transition-delay: .24s; } .d4 { transition-delay: .32s; } .d5 { transition-delay: .4s; } .d6 { transition-delay: .48s; } .d7 { transition-delay: .56s; }
+.d3 { transition-delay: .24s; } .d4 { transition-delay: .32s; } .d5 { transition-delay: .4s; } .d6 { transition-delay: .48s; } .d7 { transition-delay: .56s; } .d8 { transition-delay: .64s; }
 
 /* ---------- 반응형 ---------- */
 @media (max-width: 860px) {
