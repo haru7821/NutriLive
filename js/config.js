@@ -24,8 +24,9 @@ window.NUTRI_CONFIG = {
   //    match: 재료명 매칭 키워드 — 이 키워드가 재료에 들어간 레시피에 링크가 연결됩니다.
   //    match가 빈 배열이면 「공통 도구」로 취급 (하단 장보기 메모에만 노출).
   AFFILIATE_LINKS: [
-    { label: "참치캔(저나트륨)", note: "「저나트륨」·「물참치」 표기 확인 — 캔은 헹궈서 사용", match: ["캔참치", "참치"], url: "https://link.coupang.com/a/gh1OOaPgBM" },
-    { label: "건미역", note: "국산 여부는 원산지 표시 확인", match: ["마른미역", "미역"], url: "https://link.coupang.com/a/gh1RqjKVgG" },
-    { label: "무첨가 들깻가루", note: "무첨가·국산 여부는 원재료명 확인", match: ["들깻가루", "들깨"], url: "https://link.coupang.com/a/gh1T0atxLg" }
+    { label: "두부면", note: "유통기한·소분 냉동 여부 확인", match: ["두부면"], url: "https://link.coupang.com/a/gSr1QUbMHs" },
+    { label: "칵테일새우", note: "손질·냉동 여부 확인", match: ["칵테일새우"], url: "https://link.coupang.com/a/gSr7T6cXiC" },
+    { label: "무가당 두유", note: "「무가당」 표기 확인 — 원재료명에 당류 첨가 여부", match: ["두유"], url: "https://link.coupang.com/a/gSsaae6RCC" },
+    { label: "무염버터", note: "「무염(unsalted)」 표기 확인", match: ["무염버터"], url: "https://link.coupang.com/a/gSsf9pnI28" }
   ]
 };
